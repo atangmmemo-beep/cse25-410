@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Service - FlexRide</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="customer-service.css">
+</head>
+
+<header>
+    <div class="header-left">
+        <span class="menu-icon" onclick="toggleNav()">&#9776;</span>
+        <a href="index.html" style="text-decoration:none;">
+            <h1 style="font-size:24px;font-weight:bold;color:white;">FLEXRIDE</h1>
+        </a>
+    </div>
+</header>
+
+<nav id="navbar" class="navbar">
+    <a href="index.html"><i class="fas fa-home"></i> Home</a>
+    <a href="Vehicles.HTML"><i class="fas fa-car"></i> Vehicles</a>
+    <a href="#"><i class="fas fa-car-side"></i> Book a Car</a>
+    <a href="About-Us.html"><i class="fas fa-phone"></i> About us</a>
+    <a href="services.html"><i class="fas fa-cogs"></i> Services</a>
+    <a href="Customer Service.html"><i class="fas fa-question-circle"></i> Help</a>
+</nav>
+
+<body>
+
+<!-- HERO -->
+<section class="page-hero">
+    <span class="page-hero-tag">We're Here to Help</span>
+    <h1>How can we help<br>you today?</h1>
+    <p>Search our help centre, browse popular topics, or get in touch with our support team directly.</p>
+    <div class="hero-search">
+        <input type="text" placeholder="Search for help... e.g. 'cancel booking'" id="helpSearch">
+        <button onclick="handleSearch()"><i class="fas fa-search"></i></button>
+    </div>
+</section>
+
+<!-- CONTACT CHANNELS -->
+<section class="channels-section">
+    <div class="channels-inner">
+        <span class="section-label">Get In Touch</span>
+        <h2 class="section-heading">Choose how to reach us</h2>
+        <p class="section-sub">Our team is available across all channels — pick what works best for you.</p>
+        <div class="channels-grid">
+
+            <div class="channel-card">
+                <div class="channel-icon"><i class="fas fa-comments"></i></div>
+                <h3>Live Chat</h3>
+                <p>Chat with a real support agent in real time. Average response under 2 minutes.</p>
+                <div class="channel-badge"><i class="fas fa-circle" style="font-size:9px;color:#22c55e;"></i> Online Now</div>
+                <a href="#" class="channel-btn">Start Chat</a>
+            </div>
+
+            <div class="channel-card">
+                <div class="channel-icon"><i class="fas fa-phone-alt"></i></div>
+                <h3>Call Us</h3>
+                <p>Speak directly to our customer care team. Available 7 days a week, 06:00 – 22:00.</p>
+                <div class="channel-badge">+27 (0) 11 000 1234</div>
+                <a href="tel:+27110001234" class="channel-btn">Call Now</a>
+            </div>
+
+            <div class="channel-card">
+                <div class="channel-icon"><i class="fas fa-envelope"></i></div>
+                <h3>Email Support</h3>
+                <p>Send us a detailed message and we'll respond within 4 hours during business hours.</p>
+                <div class="channel-badge">support@flexride.co.za</div>
+                <a href="#contactForm" class="channel-btn">Send Email</a>
+            </div>
+
+            <div class="channel-card">
+                <div class="channel-icon"><i class="fab fa-whatsapp"></i></div>
+                <h3>WhatsApp</h3>
+                <p>Message us on WhatsApp for a quick, convenient conversation any time of day.</p>
+                <div class="channel-badge">+27 (0) 60 000 5678</div>
+                <a href="#" class="channel-btn">WhatsApp Us</a>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- CONTACT FORM + INFO -->
+<section class="form-section" id="contactForm">
+    <div class="form-inner">
+        <div class="form-info">
+            <span class="section-label">Contact Us</span>
+            <h2>Send us a message</h2>
+            <p>Fill in the form and a member of our team will get back to you as soon as possible — usually within 4 hours.</p>
+            <div class="form-info-item">
+                <div class="fii-icon"><i class="fas fa-map-marker-alt"></i></div>
+                <div class="fii-text">
+                    <strong>Head Office</strong>
+                    <span>14 Sandton Drive, Sandton, Johannesburg, 2196</span>
+                </div>
+            </div>
+            <div class="form-info-item">
+                <div class="fii-icon"><i class="fas fa-clock"></i></div>
+                <div class="fii-text">
+                    <strong>Support Hours</strong>
+                    <span>Mon – Sun: 06:00 – 22:00 SAST</span>
+                </div>
+            </div>
+            <div class="form-info-item">
+                <div class="fii-icon"><i class="fas fa-phone-alt"></i></div>
+                <div class="fii-text">
+                    <strong>Phone</strong>
+                    <span>+27 (0) 11 000 1234</span>
+                </div>
+            </div>
+            <div class="form-info-item">
+                <div class="fii-icon"><i class="fas fa-envelope"></i></div>
+                <div class="fii-text">
+                    <strong>Email</strong>
+                    <span>support@flexride.co.za</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="contact-form">
+            <div class="form-row-grid">
+                <div class="form-field">
+                    <label>First Name</label>
+                    <input type="text" placeholder="e.g. Sipho" id="fname">
+                </div>
+                <div class="form-field">
+                    <label>Last Name</label>
+                    <input type="text" placeholder="e.g. Dlamini" id="lname">
+                </div>
+            </div>
+            <div class="form-row-grid">
+                <div class="form-field">
+                    <label>Email Address</label>
+                    <input type="email" placeholder="your@email.com" id="email">
+                </div>
+                <div class="form-field">
+                    <label>Phone Number</label>
+                    <input type="tel" placeholder="+27 XX XXX XXXX" id="phone">
+                </div>
+            </div>
+            <div class="form-field">
+                <label>Booking Reference (optional)</label>
+                <input type="text" placeholder="e.g. FLX-2025-00123" id="bookingRef">
+            </div>
+            <div class="form-field">
+                <label>Topic</label>
+                <select id="topic">
+                    <option value="">— Select a topic —</option>
+                    <option>Booking / Reservation</option>
+                    <option>Cancellation or Modification</option>
+                    <option>Billing & Payments</option>
+                    <option>Vehicle Issue</option>
+                    <option>Insurance & Coverage</option>
+                    <option>Loyalty Programme</option>
+                    <option>Other</option>
+                </select>
+            </div>
+            <div class="form-field">
+                <label>Message</label>
+                <textarea placeholder="Tell us what's on your mind..." id="message"></textarea>
+            </div>
+            <button class="form-submit" onclick="submitForm()">Send Message &rarr;</button>
+            <p class="form-note">We typically respond within 4 hours during business hours.</p>
+        </div>
+    </div>
+</section>
+
+<!-- HELP TOPICS -->
+<section class="help-section">
+    <div class="help-inner">
+        <span class="section-label">Browse Topics</span>
+        <h2 class="section-heading">Popular help articles</h2>
+        <p class="section-sub">Find quick answers to the most common questions.</p>
+        <div class="help-grid">
+            <a href="#" class="help-tile"><i class="fas fa-calendar-alt help-tile-icon"></i><span>How to modify a booking</span></a>
+            <a href="#" class="help-tile"><i class="fas fa-times-circle help-tile-icon"></i><span>Cancellation policy</span></a>
+            <a href="#" class="help-tile"><i class="fas fa-id-card help-tile-icon"></i><span>Required documents</span></a>
+            <a href="#" class="help-tile"><i class="fas fa-gas-pump help-tile-icon"></i><span>Fuel policy explained</span></a>
+            <a href="#" class="help-tile"><i class="fas fa-shield-alt help-tile-icon"></i><span>Insurance options</span></a>
+            <a href="#" class="help-tile"><i class="fas fa-map-pin help-tile-icon"></i><span>Pickup & return locations</span></a>
+            <a href="#" class="help-tile"><i class="fas fa-star help-tile-icon"></i><span>Loyalty points & rewards</span></a>
+            <a href="#" class="help-tile"><i class="fas fa-mobile-alt help-tile-icon"></i><span>Using the FlexRide app</span></a>
+            <a href="#" class="help-tile"><i class="fas fa-user-plus help-tile-icon"></i><span>Adding an extra driver</span></a>
+            <a href="#" class="help-tile"><i class="fas fa-receipt help-tile-icon"></i><span>Billing & invoices</span></a>
+            <a href="#" class="help-tile"><i class="fas fa-baby-carriage help-tile-icon"></i><span>Child seat add-ons</span></a>
+            <a href="#" class="help-tile"><i class="fas fa-globe help-tile-icon"></i><span>Cross-border travel</span></a>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq2-section">
+    <div class="faq2-inner">
+        <h2 class="faq2-heading">Frequently Asked Questions</h2>
+        <div class="faq2-list">
+            <div class="faq2-item">
+                <button class="faq2-q" onclick="toggleFaq2(this)">What documents do I need to rent a car?<span class="faq2-icon">+</span></button>
+                <div class="faq2-a"><p>You'll need a valid driver's licence, a credit or debit card in your name, and a government-issued ID. International renters should also bring their passport and an International Driving Permit if applicable.</p></div>
+            </div>
+            <div class="faq2-item">
+                <button class="faq2-q" onclick="toggleFaq2(this)">How do I cancel or modify my booking?<span class="faq2-icon">+</span></button>
+                <div class="faq2-a"><p>Log in to your account, navigate to "My Bookings", and select the reservation you'd like to change. Cancellations and modifications are free up to 48 hours before pickup. Changes within 48 hours may incur a small fee.</p></div>
+            </div>
+            <div class="faq2-item">
+                <button class="faq2-q" onclick="toggleFaq2(this)">Is fuel included in the rental price?<span class="faq2-icon">+</span></button>
+                <div class="faq2-a"><p>Vehicles are provided with a full tank. We ask that you return the car with a full tank. If the vehicle is returned with less fuel, a refuelling fee will be charged based on the amount needed plus a service charge.</p></div>
+            </div>
+            <div class="faq2-item">
+                <button class="faq2-q" onclick="toggleFaq2(this)">What happens if I return the car late?<span class="faq2-icon">+</span></button>
+                <div class="faq2-a"><p>A grace period of 30 minutes applies. Returns between 30 minutes and 3 hours late are charged a half-day rate. Returns more than 3 hours late are charged a full-day rate. We recommend extending your booking in advance via the app to avoid this.</p></div>
+            </div>
+            <div class="faq2-item">
+                <button class="faq2-q" onclick="toggleFaq2(this)">Can I take the car across the border?<span class="faq2-icon">+</span></button>
+                <div class="faq2-a"><p>Yes — cross-border travel is available to selected neighbouring countries including Namibia, Botswana, Lesotho, Eswatini, and Mozambique. A cross-border letter and additional fee apply. Please inform us at the time of booking.</p></div>
+            </div>
+            <div class="faq2-item">
+                <button class="faq2-q" onclick="toggleFaq2(this)">How does the Spotless One loyalty programme work?<span class="faq2-icon">+</span></button>
+                <div class="faq2-a"><p>Every rand you spend earns you Spotless Points. Points can be redeemed for discounts, free upgrades, or cashback. Join for free during signup and start earning from your very first rental.</p></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+    <div class="footer-topbar">
+        <div class="footer-logo">Spotless<span>Ride</span></div>
+        <div class="footer-socials">
+            <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg></a>
+            <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+            <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+            <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58a2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58zM9.75 15.02V8.98L15.5 12l-5.75 3.02z"/></svg></a>
+        </div>
+    </div>
+    <div class="footer-divider"></div>
+    <div class="footer-cols">
+        <div class="footer-col"><h4>Our Services</h4><a href="#">Car Rental</a><a href="#">Truck Rental</a><a href="#">Airport Transfer</a><a href="#">Subscription Plans</a><a href="#">Spotless Ride App</a></div>
+        <div class="footer-col"><h4>For Business</h4><a href="#">Register My Business</a><a href="#">Corporate Rates</a><a href="#">Fleet Solutions</a><a href="#">Travel Agencies</a></div>
+        <div class="footer-col"><h4>Members</h4><a href="#">Spotless One Rewards</a><a href="#">Member Deals</a><a href="#">Referral Program</a><a href="#">Points &amp; Perks</a></div>
+        <div class="footer-col"><h4>About Us</h4><a href="#">Our Story</a><a href="#">News &amp; Blog</a><a href="#">Careers</a><a href="#">Press</a><a href="#">Investor Relations</a></div>
+        <div class="footer-col"><h4>Help &amp; Support</h4><a href="#">Help Centre</a><a href="#">Contact Us</a><a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#">Cookie Settings</a></div>
+    </div>
+    <div class="footer-divider"></div>
+    <div class="footer-bottom">
+        <div class="footer-store-btns">
+            <a href="#" class="f-store-btn"><svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span><small>Download on the</small>App Store</span></a>
+            <a href="#" class="f-store-btn"><svg viewBox="0 0 24 24" fill="none" width="20" height="20"><path d="M3 20.5v-17c0-.83 1-.83 1.5-.5l14 8.5-14 8.5c-.5.33-1.5.33-1.5-.5z" fill="#4CAF50"/><path d="M3 3.5l10 10L3 20.5V3.5z" fill="#81C784"/><path d="M17.5 11.5l-4.5 2-10-10 14.5 8z" fill="#FF7043"/><path d="M17.5 12.5L3 20.5l10-10 4.5 2z" fill="#FFCA28"/></svg><span><small>GET IT ON</small>Google Play</span></a>
+        </div>
+        <div class="footer-pay"><span>VISA</span><span>MC</span><span>AMEX</span><span>PayPal</span></div>
+        <p class="footer-copy">&copy; 2025 Spotless Ride. All rights reserved.</p>
+    </div>
+</footer>
+
+<!-- Toast -->
+<div class="toast" id="toast">✅ Message sent! We'll be in touch soon.</div>
+
+</body>
+
+<script>
+    function toggleNav() {
+        document.getElementById('navbar').classList.toggle('active');
+    }
+    window.addEventListener('click', function(e) {
+        const navbar = document.getElementById('navbar');
+        const menuIcon = document.querySelector('.menu-icon');
+        if (!navbar.contains(e.target) && !menuIcon.contains(e.target)) {
+            navbar.classList.remove('active');
+        }
+    });
+
+    function toggleFaq2(btn) {
+        const answer = btn.nextElementSibling;
+        const isOpen = btn.classList.contains('open');
+        document.querySelectorAll('.faq2-q').forEach(q => q.classList.remove('open'));
+        document.querySelectorAll('.faq2-a').forEach(a => a.classList.remove('open'));
+        if (!isOpen) {
+            btn.classList.add('open');
+            answer.classList.add('open');
+            setTimeout(() => btn.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 100);
+        }
+    }
+
+    function submitForm() {
+        const fname = document.getElementById('fname').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const message = document.getElementById('message').value.trim();
+        if (!fname || !email || !message) {
+            alert('Please fill in your name, email, and message.');
+            return;
+        }
+        const toast = document.getElementById('toast');
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 4000);
+        document.getElementById('fname').value = '';
+        document.getElementById('lname').value = '';
+        document.getElementById('email').value = '';
+        document.getElementById('phone').value = '';
+        document.getElementById('bookingRef').value = '';
+        document.getElementById('topic').value = '';
+        document.getElementById('message').value = '';
+    }
+
+    function handleSearch() {
+        const q = document.getElementById('helpSearch').value.trim();
+        if (q) {
+            document.querySelector('.help-section').scrollIntoView({ behavior: 'smooth' });
+        }
+    }
+
+    document.getElementById('helpSearch').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') handleSearch();
+    });
+</script>
+</html>

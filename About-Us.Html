@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - FlexRide</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+
+        /* ===== HEADER ===== */
+        header { background-color:black; color:white; padding:15px 20px; display:flex; justify-content:space-between; align-items:center; position:fixed; top:0;left:0; width:100%; z-index:1000; }
+        .header-left { display:flex; align-items:center; }
+        .menu-icon { font-size:30px; cursor:pointer; color:white; margin-right:10px; }
+        .header-right { margin-left:auto; }
+        .auth-link { font-size:13px; color:white; text-decoration:none; padding:10px; border:1px solid white; border-radius:2px; }
+
+        /* ===== NAVBAR ===== */
+        .navbar { position:fixed; top:60px; left:0; width:100%; height:calc(100vh - 60px); background-color:rgba(0,0,0,0.95); transition:transform 0.5s ease-in-out; transform:translateY(-100%); z-index:999; display:flex; flex-direction:column; align-items:flex-start; justify-content:flex-start; padding:20px; }
+        .navbar.active { transform:translateY(0); }
+        .navbar a { display:flex; align-items:center; padding:15px 20px; text-decoration:none; font-size:24px; color:white; width:100%; transition:background 0.3s ease, color 0.3s ease; border-bottom:1px solid rgba(255,255,255,0.2); }
+        .navbar a:hover { background:rgba(255,255,255,0.2); color:#b0c4de; }
+        .navbar a:last-child { border-bottom:none; }
+        .navbar a i { margin-right:10px; }
+
+        /* ===== PAGE HERO ===== */
+        .page-hero {
+            margin-top: 60px;
+            background: #0a0a0a;
+            padding: 100px 40px 80px;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        .page-hero::after {
+            content: '';
+            position: absolute;
+            bottom: -80px; left: 50%; transform: translateX(-50%);
+            width: 600px; height: 200px;
+            background: radial-gradient(ellipse, rgba(232,76,14,0.18) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .page-hero-tag { font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:3px;color:#e84c0e;margin-bottom:14px;display:block; }
+        .page-hero h1 { font-size:clamp(36px,5.5vw,62px); font-weight:900; line-height:1.1; margin-bottom:20px; }
+        .page-hero h1 em { color:#e84c0e; font-style:normal; }
+        .page-hero p { font-size:16px; color:rgba(255,255,255,0.6); max-width:520px; margin:0 auto; line-height:1.7; }
+
+        /* ===== STATS STRIP ===== */
+        .stats-strip { background:#e84c0e; padding:36px 40px; }
+        .stats-inner { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit, minmax(180px,1fr)); gap:20px; text-align:center; }
+        .stat-num { font-size:38px; font-weight:900; color:#fff; line-height:1; }
+        .stat-label { font-size:13px; color:rgba(255,255,255,0.8); margin-top:6px; font-weight:600; text-transform:uppercase; letter-spacing:1px; }
+
+        /* ===== STORY SECTION ===== */
+        .story-section { background:#fff; padding:90px 40px; }
+        .story-inner { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:70px; align-items:center; }
+        .story-text .section-label { font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:3px;color:#e84c0e;display:block;margin-bottom:14px; }
+        .story-text h2 { font-size:clamp(28px,3.5vw,40px); font-weight:900; color:#111; margin-bottom:22px; line-height:1.2; }
+        .story-text p { font-size:15px; color:#666; line-height:1.75; margin-bottom:18px; }
+        .story-img-side { position:relative; }
+        .story-img-box {
+            border-radius:16px; overflow:hidden; height:440px;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            display:flex; align-items:center; justify-content:center;
+        }
+        .story-img-box i { font-size:80px; color:rgba(232,76,14,0.3); }
+        .story-badge {
+            position:absolute; bottom:-20px; right:-20px;
+            background:#e84c0e; color:#fff;
+            padding:22px 28px; border-radius:14px;
+            text-align:center; box-shadow:0 8px 28px rgba(232,76,14,0.35);
+        }
+        .story-badge .b-num { font-size:34px; font-weight:900; }
+        .story-badge .b-label { font-size:12px; opacity:0.85; margin-top:4px; }
+
+        /* ===== MISSION / VALUES ===== */
+        .values-section { background:#f7f7f7; padding:80px 40px; }
+        .values-inner { max-width:1100px; margin:0 auto; }
+        .section-label { font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:3px;color:#e84c0e;display:block;margin-bottom:12px; }
+        .section-heading { font-size:clamp(26px,3.5vw,38px); font-weight:900; color:#111; margin-bottom:8px; }
+        .section-sub { font-size:15px;color:#777;margin-bottom:48px;max-width:520px;line-height:1.7; }
+        .values-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:24px; }
+        .value-card { background:#fff; border-radius:14px; padding:34px 28px; border-left:4px solid #e84c0e; box-shadow:0 2px 16px rgba(0,0,0,0.05); transition:transform 0.3s; }
+        .value-card:hover { transform:translateY(-5px); }
+        .value-icon { font-size:28px; color:#e84c0e; margin-bottom:16px; }
+        .value-card h3 { font-size:19px; font-weight:800; color:#111; margin-bottom:10px; }
+        .value-card p { font-size:14px; color:#666; line-height:1.65; }
+
+        /* ===== TEAM SECTION ===== */
+        .team-section { background:#fff; padding:80px 40px; }
+        .team-inner { max-width:1100px; margin:0 auto; }
+        .team-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:28px; margin-top:0; }
+        .team-card { text-align:center; }
+        .team-avatar {
+            width:120px; height:120px; border-radius:50%;
+            background:linear-gradient(135deg,#1a1a2e,#e84c0e);
+            margin:0 auto 16px;
+            display:flex; align-items:center; justify-content:center;
+        }
+        .team-avatar i { font-size:40px; color:rgba(255,255,255,0.6); }
+        .team-card h4 { font-size:17px; font-weight:800; color:#111; margin-bottom:4px; }
+        .team-card .role { font-size:13px; color:#e84c0e; font-weight:600; margin-bottom:8px; }
+        .team-card p { font-size:13px; color:#777; line-height:1.6; }
+
+        /* ===== TIMELINE ===== */
+        .timeline-section { background:#111; padding:80px 40px; color:white; }
+        .timeline-inner { max-width:760px; margin:0 auto; }
+        .timeline-section .section-label { color:#e84c0e; }
+        .timeline-section .section-heading { color:#fff; }
+        .timeline-section .section-sub { color:rgba(255,255,255,0.55); }
+        .timeline { position:relative; padding-left:40px; border-left:2px solid rgba(255,255,255,0.12); margin-top:0; }
+        .timeline-item { position:relative; margin-bottom:40px; }
+        .timeline-item::before {
+            content:''; position:absolute;
+            left:-48px; top:4px;
+            width:14px; height:14px;
+            border-radius:50%; background:#e84c0e;
+            border:3px solid #111;
+            box-shadow:0 0 0 2px #e84c0e;
+        }
+        .timeline-year { font-size:12px;font-weight:700;color:#e84c0e;text-transform:uppercase;letter-spacing:2px;margin-bottom:6px; }
+        .timeline-item h4 { font-size:18px; font-weight:800; color:#fff; margin-bottom:6px; }
+        .timeline-item p { font-size:14px; color:rgba(255,255,255,0.6); line-height:1.65; }
+
+        /* ===== FOOTER ===== */
+        .site-footer { background:#111; color:rgba(255,255,255,0.65); padding:50px 40px 30px; font-size:14px; }
+        .footer-topbar { display:flex; align-items:center; justify-content:space-between; margin-bottom:32px; }
+        .footer-logo { font-size:26px; font-weight:900; color:#fff; letter-spacing:-0.5px; }
+        .footer-logo span { color:#e84c0e; }
+        .footer-socials { display:flex; gap:14px; }
+        .footer-socials a { width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.7);transition:0.2s;text-decoration:none; }
+        .footer-socials a svg { width:18px;height:18px; }
+        .footer-socials a:hover { background:#e84c0e;border-color:#e84c0e;color:#fff; }
+        .footer-divider { border:none;border-top:1px solid rgba(255,255,255,0.08);margin:0 0 36px; }
+        .footer-cols { display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:32px;margin-bottom:36px; }
+        .footer-col h4 { font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:rgba(255,255,255,0.4);margin:0 0 18px; }
+        .footer-col a { display:block;color:rgba(255,255,255,0.75);text-decoration:none;font-size:14px;font-weight:600;margin-bottom:13px;transition:color 0.2s; }
+        .footer-col a:hover { color:#e84c0e; }
+        .footer-bottom { display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:18px;padding-top:28px;border-top:1px solid rgba(255,255,255,0.08); }
+        .footer-store-btns { display:flex;gap:12px;flex-wrap:wrap; }
+        .f-store-btn { display:flex;align-items:center;gap:9px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.14);border-radius:8px;padding:9px 16px;color:#fff;text-decoration:none;transition:0.2s;min-width:140px; }
+        .f-store-btn:hover { background:#e84c0e;border-color:#e84c0e; }
+        .f-store-btn span { display:flex;flex-direction:column;font-size:14px;font-weight:700;line-height:1.2;color:#fff; }
+        .f-store-btn small { font-size:10px;font-weight:400;opacity:0.7; }
+        .footer-pay { display:flex;gap:8px;flex-wrap:wrap;align-items:center; }
+        .footer-pay span { background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-radius:5px;padding:5px 12px;font-size:11px;font-weight:700;color:rgba(255,255,255,0.6);letter-spacing:0.5px; }
+        .footer-copy { font-size:12px;color:rgba(255,255,255,0.3);margin:0; }
+
+        @media (max-width: 768px) {
+            .story-inner { grid-template-columns:1fr; gap:40px; }
+            .story-badge { right:0; }
+            .stats-strip { padding:28px 20px; }
+            .story-section, .values-section, .team-section, .timeline-section { padding:50px 20px; }
+            .page-hero { padding:70px 20px 60px; }
+            .footer-cols { grid-template-columns:1fr 1fr; }
+            .footer-topbar { flex-direction:column; align-items:flex-start; gap:18px; }
+            .footer-bottom { flex-direction:column; align-items:flex-start; }
+        }
+        .team-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto 18px;
+    border: 3px solid #e84c0e;
+}
+
+.team-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+.story-img-box {
+    width: 100%;
+    height: 100%;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.story-img-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+    </style>
+</head>
+
+<header>
+    <div class="header-left">
+        <span class="menu-icon" onclick="toggleNav()">&#9776;</span>
+        <a href="index.html" style="text-decoration:none;">
+            <h1 style="font-size:24px;font-weight:bold;color:white;">FLEXRIDE</h1>
+        </a>
+    </div>
+   
+</header>
+
+<nav id="navbar" class="navbar">
+    <a href="index.html"><i class="fas fa-home"></i> Home</a>
+    <a href="Vehicles.HTML"><i class="fas fa-car"></i> Vehicles</a>
+    <a href="#"><i class="fas fa-car-side"></i> Book a Car</a>
+    <a href="About-Us.html"><i class="fas fa-phone"></i> About us</a>
+    <a href="services.html"><i class="fas fa-cogs"></i> Services</a>
+    <a href="Customer Service.html"><i class="fas fa-question-circle"></i> Help</a>
+</nav>
+
+<body>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+    <span class="page-hero-tag">Our Story</span>
+    <h1>Born to move.<br>Built for <em>people</em>.</h1>
+    <p>FlexRide started with one simple belief — getting from A to B should be effortless, affordable, and even enjoyable.</p>
+</section>
+
+<!-- STATS STRIP -->
+<section class="stats-strip">
+    <div class="stats-inner">
+        <div>
+            <div class="stat-num">200+</div>
+            <div class="stat-label">Pickup Locations</div>
+        </div>
+        <div>
+            <div class="stat-num">50K+</div>
+            <div class="stat-label">Happy Customers</div>
+        </div>
+        <div>
+            <div class="stat-num">1,200+</div>
+            <div class="stat-label">Vehicles in Fleet</div>
+        </div>
+        <div>
+            <div class="stat-num">4.8★</div>
+            <div class="stat-label">Average Rating</div>
+        </div>
+        <div>
+            <div class="stat-num">8yrs</div>
+            <div class="stat-label">In Business</div>
+        </div>
+    </div>
+</section>
+
+<!-- STORY -->
+<section class="story-section">
+    <div class="story-inner">
+        <div class="story-text">
+            <span class="section-label">Who We Are</span>
+            <h2>We rethought car rental. From scratch.</h2>
+            <p>FlexRide was founded in 2016 by a team of travel enthusiasts frustrated by outdated rental companies — hidden fees, long queues, and vehicles that felt like an afterthought.</p>
+            <p>We set out to build something completely different: a digital-first rental experience that puts the customer in control. No paperwork. No surprises. Just the keys and the open road.</p>
+            <p>Today, FlexRide operates across South Africa with over 1,200 vehicles and a community of more than 50,000 loyal drivers. But our mission hasn't changed — make every journey feel like it was built just for you.</p>
+        </div>
+        <div class="story-img-side">
+            <div class="story-img-box">
+                <img src="Road.jpg" alt="Open road">
+            </div>
+            <div class="story-badge">
+                <div class="b-num">2016</div>
+                <div class="b-label">Est. Johannesburg</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- VALUES -->
+<section class="values-section">
+    <div class="values-inner">
+        <span class="section-label">What Drives Us</span>
+        <h2 class="section-heading">Our core values</h2>
+        <p class="section-sub">Everything we build, every decision we make, comes back to these four principles.</p>
+        <div class="values-grid">
+            <div class="value-card">
+                <div class="value-icon"><i class="fas fa-heart"></i></div>
+                <h3>Customer First</h3>
+                <p>Every feature, every policy, and every hire is shaped around making your experience better. Full stop.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon"><i class="fas fa-eye"></i></div>
+                <h3>Radical Transparency</h3>
+                <p>No hidden fees. No small print surprises. What you see is what you pay — guaranteed.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon"><i class="fas fa-leaf"></i></div>
+                <h3>Sustainability</h3>
+                <p>We're building a greener fleet every year. Our EV programme and carbon offset initiative are just the beginning.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon"><i class="fas fa-rocket"></i></div>
+                <h3>Always Improving</h3>
+                <p>We listen, learn, and constantly iterate. Customer feedback shapes every product update we ship.</p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- TEAM -->
+<section class="team-section">
+    <div class="team-inner">
+        <span class="section-label">The People</span>
+        <h2 class="section-heading">Meet the team</h2>
+        <p class="section-sub">A passionate crew of operators, engineers, and road-trip lovers building the future of mobility.</p>
+        <div class="team-grid">
+            <div class="team-card">
+                <div class="team-avatar">
+                    <img src="Ceo.jpg" alt="Sipho Dlamini">
+                </div>
+                <h4>Sipho Dlamini</h4>
+                <div class="role">Co-Founder & CEO</div>
+                <p>Former logistics executive turned startup founder. Sipho's vision drives FlexRide forward every day.</p>
+            </div>
+            <div class="team-card">
+                <div class="team-avatar">
+                    <img src="CTO.avif" alt="Ayanda Mokoena">
+                </div>
+                <h4>Ayanda Mokoena</h4>
+                <div class="role">Co-Founder & CTO</div>
+                <p>Engineer by training, product thinker by nature. Ayanda built our booking platform from the ground up.</p>
+            </div>
+            <div class="team-card">
+                <div class="team-avatar">
+                    <img src="Head.jpg" alt="Lerato Nkosi">
+                </div>
+                <h4>Lerato Nkosi</h4>
+                <div class="role">Head of Customer Experience</div>
+                <p>On a personal mission to make every single customer interaction feel human and effortless.</p>
+            </div>
+            <div class="team-card">
+                <div class="team-avatar">
+                    <img src="ana.jpg" alt="Tendai Phiri">
+                </div>
+                <h4>Tendai Phiri</h4>
+                <div class="role">Head of Fleet Operations</div>
+                <p>If it has wheels, Tendai knows it. Keeps 1,200+ vehicles in perfect condition, every single day.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="timeline-section">
+    <div class="timeline-inner">
+        <span class="section-label">Our Journey</span>
+        <h2 class="section-heading" style="color:#fff;">How we got here</h2>
+        <p class="section-sub">From a startup with 12 cars to South Africa's most-loved rental platform.</p>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-year">2016</div>
+                <h4>FlexRide is born</h4>
+                <p>Launched in Johannesburg with 12 vehicles and a big dream. First 100 customers served in month one.</p>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-year">2018</div>
+                <h4>Mobile app launch</h4>
+                <p>Our iOS and Android app goes live, enabling fully paperless booking for the first time in SA.</p>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-year">2020</div>
+                <h4>Airport transfer network</h4>
+                <p>Expanded to 14 major airports across South Africa. 50,000 airport trips completed in year one.</p>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-year">2022</div>
+                <h4>Subscription plans introduced</h4>
+                <p>Launched FlexRide Monthly — the first car subscription service with unlimited vehicle swaps in Africa.</p>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-year">2024</div>
+                <h4>EV fleet expansion</h4>
+                <p>Added 200 electric vehicles across our fleet. Committed to 50% EV penetration by 2027.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+    <div class="footer-topbar">
+        <div class="footer-logo">Spotless<span>Ride</span></div>
+        <div class="footer-socials">
+            <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg></a>
+            <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+            <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+            <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58a2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58zM9.75 15.02V8.98L15.5 12l-5.75 3.02z"/></svg></a>
+        </div>
+    </div>
+    <div class="footer-divider"></div>
+    <div class="footer-cols">
+        <div class="footer-col"><h4>Our Services</h4><a href="#">Car Rental</a><a href="#">Truck Rental</a><a href="#">Airport Transfer</a><a href="#">Subscription Plans</a><a href="#">Spotless Ride App</a></div>
+        <div class="footer-col"><h4>For Business</h4><a href="#">Register My Business</a><a href="#">Corporate Rates</a><a href="#">Fleet Solutions</a><a href="#">Travel Agencies</a></div>
+        <div class="footer-col"><h4>Members</h4><a href="#">Spotless One Rewards</a><a href="#">Member Deals</a><a href="#">Referral Program</a><a href="#">Points &amp; Perks</a></div>
+        <div class="footer-col"><h4>About Us</h4><a href="#">Our Story</a><a href="#">News &amp; Blog</a><a href="#">Careers</a><a href="#">Press</a><a href="#">Investor Relations</a></div>
+        <div class="footer-col"><h4>Help &amp; Support</h4><a href="#">Help Centre</a><a href="#">Contact Us</a><a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#">Cookie Settings</a></div>
+    </div>
+    <div class="footer-divider"></div>
+    <div class="footer-bottom">
+        <div class="footer-store-btns">
+            <a href="#" class="f-store-btn"><svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span><small>Download on the</small>App Store</span></a>
+            <a href="#" class="f-store-btn"><svg viewBox="0 0 24 24" fill="none" width="20" height="20"><path d="M3 20.5v-17c0-.83 1-.83 1.5-.5l14 8.5-14 8.5c-.5.33-1.5.33-1.5-.5z" fill="#4CAF50"/><path d="M3 3.5l10 10L3 20.5V3.5z" fill="#81C784"/><path d="M17.5 11.5l-4.5 2-10-10 14.5 8z" fill="#FF7043"/><path d="M17.5 12.5L3 20.5l10-10 4.5 2z" fill="#FFCA28"/></svg><span><small>GET IT ON</small>Google Play</span></a>
+        </div>
+        <div class="footer-pay"><span>VISA</span><span>MC</span><span>AMEX</span><span>PayPal</span></div>
+        <p class="footer-copy">&copy; 2025 Spotless Ride. All rights reserved.</p>
+    </div>
+</footer>
+
+</body>
+
+<script>
+    function toggleNav() {
+        document.getElementById('navbar').classList.toggle('active');
+    }
+    window.addEventListener('click', function(e) {
+        const navbar = document.getElementById('navbar');
+        const menuIcon = document.querySelector('.menu-icon');
+        if (!navbar.contains(e.target) && !menuIcon.contains(e.target)) {
+            navbar.classList.remove('active');
+        }
+    });
+</script>
+</html>

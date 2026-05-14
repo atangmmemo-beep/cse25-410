@@ -1,46 +1,596 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Services - Spotless Ride</title>
-<style>
-body { font-family: Arial; margin:0; }
-header, footer { background:#0d47a1; color:white; padding:15px; text-align:center; }
-.service { border:1px solid #ccc; margin:20px; padding:20px; }
-.btn { background:#1976d2; color:white; padding:10px; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services - FlexRide</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+
+        /* ===== HEADER ===== */
+        header {
+            background-color: black;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+        .header-left { display: flex; align-items: center; }
+        .menu-icon { font-size: 30px; cursor: pointer; color: white; margin-right: 10px; }
+        .header-right { margin-left: auto; }
+        .auth-link {
+            font-size: 13px; color: white; text-decoration: none;
+            padding: 10px; border: 1px solid white; border-radius: 2px;
+        }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            position: fixed;
+            top: 60px; left: 0;
+            width: 100%;
+            height: calc(100vh - 60px);
+            background-color: rgba(0,0,0,0.95);
+            transition: transform 0.5s ease-in-out;
+            transform: translateY(-100%);
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-start;
+            padding: 20px;
+        }
+        .navbar.active { transform: translateY(0); }
+        .navbar a {
+            display: flex; align-items: center;
+            padding: 15px 20px;
+            text-decoration: none; font-size: 24px; color: white;
+            width: 100%;
+            transition: background 0.3s ease, color 0.3s ease;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+        .navbar a:hover { background: rgba(255,255,255,0.2); color: #b0c4de; }
+        .navbar a:last-child { border-bottom: none; }
+        .navbar a i { margin-right: 10px; }
+
+        /* ===== PAGE HERO ===== */
+        .page-hero {
+            margin-top: 60px;
+            background: #111;
+            padding: 80px 40px;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            top: -60px; right: -60px;
+            width: 400px; height: 400px;
+            background: radial-gradient(circle, rgba(232,76,14,0.25) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .page-hero-tag {
+            font-size: 12px; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 3px;
+            color: #e84c0e; margin-bottom: 14px; display: block;
+        }
+        .page-hero h1 {
+            font-size: clamp(32px, 5vw, 54px);
+            font-weight: 900; line-height: 1.15; margin-bottom: 18px;
+        }
+        .page-hero p {
+            font-size: 16px; color: rgba(255,255,255,0.65);
+            max-width: 540px; margin: 0 auto; line-height: 1.7;
+        }
+
+        /* ===== SERVICES GRID ===== */
+        .services-section {
+            background: #fff;
+            padding: 80px 40px;
+        }
+        .services-inner { max-width: 1100px; margin: 0 auto; }
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        .service-card {
+            border: 1px solid #eee;
+            border-radius: 14px;
+            overflow: hidden;
+            transition: box-shadow 0.3s, transform 0.3s;
+            background: #fff;
+        }
+        .service-card:hover {
+            box-shadow: 0 16px 48px rgba(0,0,0,0.10);
+            transform: translateY(-6px);
+        }
+        .service-card-img {
+            height: 220px;
+            background: #111;
+            position: relative;
+            overflow: hidden;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .service-card-img i {
+            font-size: 64px; color: rgba(255,255,255,0.15);
+            position: absolute;
+        }
+        .service-card-img-bg {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            opacity: 0.55;
+        }
+        .service-tag-badge {
+            position: absolute; top: 18px; left: 18px;
+            background: #e84c0e;
+            color: #fff; font-size: 11px; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 1.5px;
+            padding: 5px 12px; border-radius: 30px;
+        }
+        .service-card-body { padding: 26px 26px 30px; }
+        .service-card-body h3 {
+            font-size: 20px; font-weight: 900; color: #111;
+            margin-bottom: 10px;
+        }
+        .service-card-body p {
+            font-size: 14px; color: #666; line-height: 1.65;
+            margin-bottom: 20px;
+        }
+        .service-card-body ul {
+            list-style: none; margin-bottom: 22px;
+        }
+        .service-card-body ul li {
+            font-size: 13px; color: #444;
+            padding: 5px 0; display: flex; align-items: center; gap: 8px;
+        }
+        .service-card-body ul li i { color: #e84c0e; font-size: 12px; }
+        .service-btn {
+            display: inline-block;
+            background: #111; color: #fff;
+            padding: 12px 24px; border-radius: 8px;
+            text-decoration: none; font-size: 14px; font-weight: 700;
+            transition: background 0.2s;
+        }
+        .service-btn:hover { background: #e84c0e; }
+
+        /* ===== WHY CHOOSE US ===== */
+        .why-section {
+            background: #f7f7f7;
+            padding: 80px 40px;
+        }
+        .why-inner { max-width: 1100px; margin: 0 auto; }
+        .section-label {
+            font-size: 12px; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 3px;
+            color: #e84c0e; display: block; margin-bottom: 12px;
+        }
+        .section-heading {
+            font-size: clamp(26px, 3.5vw, 38px);
+            font-weight: 900; color: #111; margin-bottom: 8px;
+        }
+        .section-sub {
+            font-size: 15px; color: #777; margin-bottom: 48px; max-width: 520px; line-height: 1.7;
+        }
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 28px;
+        }
+        .why-card {
+            background: #fff;
+            border-radius: 14px;
+            padding: 32px 26px;
+            border: 1px solid #eee;
+            transition: box-shadow 0.3s;
+        }
+        .why-card:hover { box-shadow: 0 10px 32px rgba(0,0,0,0.08); }
+        .why-icon {
+            width: 52px; height: 52px;
+            background: rgba(232,76,14,0.1);
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 18px;
+        }
+        .why-icon i { font-size: 22px; color: #e84c0e; }
+        .why-card h4 { font-size: 17px; font-weight: 800; color: #111; margin-bottom: 8px; }
+        .why-card p { font-size: 13px; color: #777; line-height: 1.6; }
+
+        /* ===== PRICING STRIP ===== */
+        .pricing-section {
+            background: #111;
+            padding: 80px 40px;
+            color: white;
+        }
+        .pricing-inner { max-width: 1100px; margin: 0 auto; }
+        .pricing-section .section-label { color: #e84c0e; }
+        .pricing-section .section-heading { color: #fff; }
+        .pricing-section .section-sub { color: rgba(255,255,255,0.55); }
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 24px;
+            margin-top: 0;
+        }
+        .pricing-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 14px;
+            padding: 36px 30px;
+            position: relative;
+            transition: background 0.3s;
+        }
+        .pricing-card:hover { background: rgba(255,255,255,0.09); }
+        .pricing-card.popular {
+            border-color: #e84c0e;
+            background: rgba(232,76,14,0.08);
+        }
+        .popular-badge {
+            position: absolute; top: -13px; left: 50%; transform: translateX(-50%);
+            background: #e84c0e; color: #fff;
+            font-size: 11px; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 1.5px;
+            padding: 4px 14px; border-radius: 30px;
+        }
+        .pricing-card h3 { font-size: 18px; font-weight: 800; color: #fff; margin-bottom: 8px; }
+        .pricing-price { font-size: 38px; font-weight: 900; color: #fff; margin: 14px 0 6px; }
+        .pricing-price span { font-size: 15px; font-weight: 400; color: rgba(255,255,255,0.5); }
+        .pricing-card p { font-size: 13px; color: rgba(255,255,255,0.5); margin-bottom: 24px; }
+        .pricing-card ul { list-style: none; margin-bottom: 28px; }
+        .pricing-card ul li {
+            font-size: 13px; color: rgba(255,255,255,0.75);
+            padding: 7px 0; display: flex; align-items: center; gap: 8px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .pricing-card ul li i { color: #e84c0e; }
+        .pricing-btn {
+            display: block; text-align: center;
+            background: #fff; color: #111;
+            padding: 13px; border-radius: 8px;
+            text-decoration: none; font-size: 14px; font-weight: 700;
+            transition: background 0.2s, color 0.2s;
+        }
+        .pricing-card.popular .pricing-btn { background: #e84c0e; color: #fff; }
+        .pricing-btn:hover { background: #e84c0e; color: #fff; }
+
+        /* ===== FOOTER ===== */
+        .site-footer { background:#111; color:rgba(255,255,255,0.65); padding:50px 40px 30px; font-size:14px; }
+        .footer-topbar { display:flex; align-items:center; justify-content:space-between; margin-bottom:32px; }
+        .footer-logo { font-size:26px; font-weight:900; color:#fff; letter-spacing:-0.5px; }
+        .footer-logo span { color:#e84c0e; }
+        .footer-socials { display:flex; gap:14px; }
+        .footer-socials a { width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.7);transition:0.2s;text-decoration:none; }
+        .footer-socials a svg { width:18px;height:18px; }
+        .footer-socials a:hover { background:#e84c0e;border-color:#e84c0e;color:#fff; }
+        .footer-divider { border:none;border-top:1px solid rgba(255,255,255,0.08);margin:0 0 36px; }
+        .footer-cols { display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:32px;margin-bottom:36px; }
+        .footer-col h4 { font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:rgba(255,255,255,0.4);margin:0 0 18px; }
+        .footer-col a { display:block;color:rgba(255,255,255,0.75);text-decoration:none;font-size:14px;font-weight:600;margin-bottom:13px;transition:color 0.2s; }
+        .footer-col a:hover { color:#e84c0e; }
+        .footer-bottom { display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:18px;padding-top:28px;border-top:1px solid rgba(255,255,255,0.08); }
+        .footer-store-btns { display:flex;gap:12px;flex-wrap:wrap; }
+        .f-store-btn { display:flex;align-items:center;gap:9px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.14);border-radius:8px;padding:9px 16px;color:#fff;text-decoration:none;transition:0.2s;min-width:140px; }
+        .f-store-btn:hover { background:#e84c0e;border-color:#e84c0e; }
+        .f-store-btn span { display:flex;flex-direction:column;font-size:14px;font-weight:700;line-height:1.2;color:#fff; }
+        .f-store-btn small { font-size:10px;font-weight:400;opacity:0.7; }
+        .footer-pay { display:flex;gap:8px;flex-wrap:wrap;align-items:center; }
+        .footer-pay span { background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-radius:5px;padding:5px 12px;font-size:11px;font-weight:700;color:rgba(255,255,255,0.6);letter-spacing:0.5px; }
+        .footer-copy { font-size:12px;color:rgba(255,255,255,0.3);margin:0; }
+
+        @media (max-width: 768px) {
+            .services-section, .why-section, .pricing-section { padding: 50px 20px; }
+            .page-hero { padding: 60px 20px; }
+            .footer-cols { grid-template-columns: 1fr 1fr; }
+            .footer-topbar { flex-direction: column; align-items: flex-start; gap: 18px; }
+            .footer-bottom { flex-direction: column; align-items: flex-start; }
+        }
+        .service-card-img {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 12px 12px 0 0;
+}
+
+.service-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+    </style>
 </head>
+
+<header>
+    <div class="header-left">
+        <span class="menu-icon" onclick="toggleNav()">&#9776;</span>
+        <a href="index.html" style="text-decoration:none;">
+            <h1 style="font-size:24px;font-weight:bold;color:white;">FLEXRIDE</h1>
+        </a>
+    </div>
+    
+</header>
+
+<nav id="navbar" class="navbar">
+    <a href="index.html"><i class="fas fa-home"></i> Home</a>
+    <a href="Vehicles.HTML"><i class="fas fa-car"></i> Vehicles</a>
+    <a href="#"><i class="fas fa-car-side"></i> Book a Car</a>
+    <a href="About-Us.html"><i class="fas fa-phone"></i> About us</a>
+    <a href="services.html"><i class="fas fa-cogs"></i> Services</a>
+    <a href="Customer Service.html"><i class="fas fa-question-circle"></i> Help</a>
+</nav>
 
 <body>
 
-<header>
-<h1>Our Services</h1>
-</header>
+<!-- PAGE HERO -->
+<section class="page-hero">
+    <span class="page-hero-tag">What We Offer</span>
+    <h1>Drive more.<br>Worry less.</h1>
+    <p>From weekend getaways to long-term subscriptions — FlexRide has the perfect solution for every journey.</p>
+</section>
 
-<div class="service">
-<h2>Basic Wash</h2>
-<p>Exterior wash and dry</p>
-<p><b>BWP 70</b></p>
-<button class="btn">Book Now</button>
-</div>
+<!-- SERVICES GRID -->
+<section class="services-section">
+    <div class="services-inner">
+        <span class="section-label">Our Services</span>
+        <h2 class="section-heading">Everything you need, in one place</h2>
+        <p class="section-sub">Flexible options designed around your schedule, your budget, and your lifestyle.</p>
 
-<div class="service">
-<h2>Premium Wash</h2>
-<p>Interior + Exterior cleaning</p>
-<p><b>BWP 120</b></p>
-<button class="btn">Book Now</button>
-</div>
+        <div class="services-grid">
 
-<div class="service">
-<h2>Full Detailing</h2>
-<p>Complete cleaning & polish</p>
-<p><b>BWP 350</b></p>
-<button class="btn">Book Now</button>
-</div>
+            <div class="service-card">
+                <div class="service-card-img">
+                    <img src="G.webp" alt="Car Rental">
+                    <span class="service-tag-badge">Most Popular</span>
+                </div>
+                <div class="service-card-body">
+                    <h3>Car Rental</h3>
+                    <p>Rent by the day, week, or weekend. Choose from economy hatchbacks to premium SUVs — all fully insured and road-ready.</p>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> 200+ vehicle models available</li>
+                        <li><i class="fas fa-check-circle"></i> Instant online booking</li>
+                        <li><i class="fas fa-check-circle"></i> Free cancellation up to 48hrs</li>
+                        <li><i class="fas fa-check-circle"></i> 24/7 roadside assistance</li>
+                    </ul>
+                    <a href="#" class="service-btn">Book a Car &rarr;</a>
+                </div>
+            </div>
 
-<footer>
-<p>Spotless Ride - Gaborone</p>
+            <div class="service-card">
+                <div class="service-card-img">
+                    <img src="Truck.png" alt="Truck & Van Rental">
+                    <span class="service-tag-badge">For Movers</span>
+                </div>
+                <div class="service-card-body">
+                    <h3>Truck & Van Rental</h3>
+                    <p>Moving house, transporting goods, or running a business? Our fleet of trucks and vans handles every heavy-duty task.</p>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> Panel vans to 10-ton trucks</li>
+                        <li><i class="fas fa-check-circle"></i> Tail-lift options available</li>
+                        <li><i class="fas fa-check-circle"></i> Commercial & personal use</li>
+                        <li><i class="fas fa-check-circle"></i> GPS tracking included</li>
+                    </ul>
+                    <a href="#" class="service-btn">Book a Truck &rarr;</a>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-card-img">
+                    <img src="Air.jpg" alt="Airport Transfer">
+                    <span class="service-tag-badge">Airport</span>
+                </div>
+                <div class="service-card-body">
+                    <h3>Airport Transfer</h3>
+                    <p>Pre-book your airport ride and land stress-free. Our drivers track your flight in real time so you're never left waiting.</p>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> Meet & greet at arrivals</li>
+                        <li><i class="fas fa-check-circle"></i> Live flight monitoring</li>
+                        <li><i class="fas fa-check-circle"></i> Fixed pricing — no surprises</li>
+                        <li><i class="fas fa-check-circle"></i> Executive vehicle options</li>
+                    </ul>
+                    <a href="#" class="service-btn">Book Transfer &rarr;</a>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-card-img">
+                    <img src="Tesla.jpeg" alt="Monthly Subscription">
+                    <span class="service-tag-badge">Best Value</span>
+                </div>
+                <div class="service-card-body">
+                    <h3>Monthly Subscription</h3>
+                    <p>No ownership. No maintenance. Just pay monthly and swap vehicles whenever you like. The smarter way to drive.</p>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> Swap cars anytime</li>
+                        <li><i class="fas fa-check-circle"></i> Insurance & maintenance included</li>
+                        <li><i class="fas fa-check-circle"></i> Pause or cancel anytime</li>
+                        <li><i class="fas fa-check-circle"></i> From R4,999/month</li>
+                    </ul>
+                    <a href="#" class="service-btn">Explore Plans &rarr;</a>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-card-img">
+                    <img src="soft.png" alt="Corporate Fleet">
+                    <span class="service-tag-badge">Corporate</span>
+                </div>
+                <div class="service-card-body">
+                    <h3>Corporate Fleet</h3>
+                    <p>Streamlined fleet management, centralised billing, and dedicated account managers — built for businesses that move.</p>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> Volume discount pricing</li>
+                        <li><i class="fas fa-check-circle"></i> Monthly invoicing</li>
+                        <li><i class="fas fa-check-circle"></i> Multi-driver accounts</li>
+                        <li><i class="fas fa-check-circle"></i> Reporting dashboard</li>
+                    </ul>
+                    <a href="#" class="service-btn">Get a Quote &rarr;</a>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-card-img">
+                    <img src="Tes.webp" alt="Electric Vehicles">
+                    <span class="service-tag-badge">Eco</span>
+                </div>
+                <div class="service-card-body">
+                    <h3>Electric Vehicles</h3>
+                    <p>Drive the future today. Our growing EV fleet offers zero-emission travel with cutting-edge technology and full charging support.</p>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> Tesla, BMW, Audi EV range</li>
+                        <li><i class="fas fa-check-circle"></i> Charging network access</li>
+                        <li><i class="fas fa-check-circle"></i> Range guidance included</li>
+                        <li><i class="fas fa-check-circle"></i> Carbon offset certificate</li>
+                    </ul>
+                    <a href="#" class="service-btn">Go Electric &rarr;</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!-- WHY US -->
+<section class="why-section">
+    <div class="why-inner">
+        <span class="section-label">Why FlexRide</span>
+        <h2 class="section-heading">The FlexRide difference</h2>
+        <p class="section-sub">We've rethought car rental from the ground up — so every trip feels effortless.</p>
+        <div class="why-grid">
+            <div class="why-card">
+                <div class="why-icon"><i class="fas fa-bolt"></i></div>
+                <h4>Instant Booking</h4>
+                <p>Reserve a vehicle in under 2 minutes. No queues, no phone calls, no paperwork.</p>
+            </div>
+            <div class="why-card">
+                <div class="why-icon"><i class="fas fa-shield-alt"></i></div>
+                <h4>Full Coverage</h4>
+                <p>Every rental includes basic insurance. Upgrade to zero-excess Premium cover in one click.</p>
+            </div>
+            <div class="why-card">
+                <div class="why-icon"><i class="fas fa-map-marker-alt"></i></div>
+                <h4>200+ Locations</h4>
+                <p>Pick up and drop off wherever is convenient — airports, city centres, and suburbs.</p>
+            </div>
+            <div class="why-card">
+                <div class="why-icon"><i class="fas fa-headset"></i></div>
+                <h4>24/7 Support</h4>
+                <p>Our support team is always on standby — call, chat, or email any time, day or night.</p>
+            </div>
+            <div class="why-card">
+                <div class="why-icon"><i class="fas fa-star"></i></div>
+                <h4>Loyalty Rewards</h4>
+                <p>Earn points on every rental. Redeem for discounts, free upgrades, and exclusive perks.</p>
+            </div>
+            <div class="why-card">
+                <div class="why-icon"><i class="fas fa-sync-alt"></i></div>
+                <h4>Flexible Changes</h4>
+                <p>Life happens. Modify or cancel your booking free of charge up to 48 hours before pickup.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing-section">
+    <div class="pricing-inner">
+        <span class="section-label">Subscription Plans</span>
+        <h2 class="section-heading" style="color:#fff;">Pick your plan</h2>
+        <p class="section-sub">All plans include insurance, maintenance, and free vehicle swaps. Cancel anytime.</p>
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <h3>Essential</h3>
+                <div class="pricing-price">R4,999 <span>/ month</span></div>
+                <p>Perfect for everyday commuting and occasional trips.</p>
+                <ul>
+                    <li><i class="fas fa-check"></i> Economy or compact car</li>
+                    <li><i class="fas fa-check"></i> 1,500 km included</li>
+                    <li><i class="fas fa-check"></i> Basic insurance</li>
+                    <li><i class="fas fa-check"></i> 1 vehicle swap/month</li>
+                    <li><i class="fas fa-check"></i> Standard support</li>
+                </ul>
+                <a href="#" class="pricing-btn">Get Started</a>
+            </div>
+            <div class="pricing-card popular">
+                <span class="popular-badge">Most Popular</span>
+                <h3>Pro</h3>
+                <div class="pricing-price">R8,499 <span>/ month</span></div>
+                <p>For drivers who want flexibility and premium comfort.</p>
+                <ul>
+                    <li><i class="fas fa-check"></i> Mid-range or SUV</li>
+                    <li><i class="fas fa-check"></i> 3,000 km included</li>
+                    <li><i class="fas fa-check"></i> Standard+ insurance</li>
+                    <li><i class="fas fa-check"></i> 3 vehicle swaps/month</li>
+                    <li><i class="fas fa-check"></i> Priority support</li>
+                </ul>
+                <a href="#" class="pricing-btn">Get Started</a>
+            </div>
+            <div class="pricing-card">
+                <h3>Executive</h3>
+                <div class="pricing-price">R14,999 <span>/ month</span></div>
+                <p>Luxury vehicles, unlimited swaps, and concierge service.</p>
+                <ul>
+                    <li><i class="fas fa-check"></i> Premium or luxury car</li>
+                    <li><i class="fas fa-check"></i> Unlimited km</li>
+                    <li><i class="fas fa-check"></i> Zero-excess insurance</li>
+                    <li><i class="fas fa-check"></i> Unlimited swaps</li>
+                    <li><i class="fas fa-check"></i> 24/7 concierge</li>
+                </ul>
+                <a href="#" class="pricing-btn">Get Started</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+    <div class="footer-topbar">
+        <div class="footer-logo">Spotless<span>Ride</span></div>
+        <div class="footer-socials">
+            <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg></a>
+            <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+            <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+            <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58a2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58zM9.75 15.02V8.98L15.5 12l-5.75 3.02z"/></svg></a>
+        </div>
+    </div>
+    <div class="footer-divider"></div>
+    <div class="footer-cols">
+        <div class="footer-col"><h4>Our Services</h4><a href="#">Car Rental</a><a href="#">Truck Rental</a><a href="#">Airport Transfer</a><a href="#">Subscription Plans</a><a href="#">Spotless Ride App</a></div>
+        <div class="footer-col"><h4>For Business</h4><a href="#">Register My Business</a><a href="#">Corporate Rates</a><a href="#">Fleet Solutions</a><a href="#">Travel Agencies</a></div>
+        <div class="footer-col"><h4>Members</h4><a href="#">Spotless One Rewards</a><a href="#">Member Deals</a><a href="#">Referral Program</a><a href="#">Points &amp; Perks</a></div>
+        <div class="footer-col"><h4>About Us</h4><a href="#">Our Story</a><a href="#">News &amp; Blog</a><a href="#">Careers</a><a href="#">Press</a><a href="#">Investor Relations</a></div>
+        <div class="footer-col"><h4>Help &amp; Support</h4><a href="#">Help Centre</a><a href="#">Contact Us</a><a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#">Cookie Settings</a></div>
+    </div>
+    <div class="footer-divider"></div>
+    <div class="footer-bottom">
+        <div class="footer-store-btns">
+            <a href="#" class="f-store-btn"><svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span><small>Download on the</small>App Store</span></a>
+            <a href="#" class="f-store-btn"><svg viewBox="0 0 24 24" fill="none" width="20" height="20"><path d="M3 20.5v-17c0-.83 1-.83 1.5-.5l14 8.5-14 8.5c-.5.33-1.5.33-1.5-.5z" fill="#4CAF50"/><path d="M3 3.5l10 10L3 20.5V3.5z" fill="#81C784"/><path d="M17.5 11.5l-4.5 2-10-10 14.5 8z" fill="#FF7043"/><path d="M17.5 12.5L3 20.5l10-10 4.5 2z" fill="#FFCA28"/></svg><span><small>GET IT ON</small>Google Play</span></a>
+        </div>
+        <div class="footer-pay"><span>VISA</span><span>MC</span><span>AMEX</span><span>PayPal</span></div>
+        <p class="footer-copy">&copy; 2025 Spotless Ride. All rights reserved.</p>
+    </div>
 </footer>
 
 </body>
+
+<script>
+    function toggleNav() {
+        document.getElementById('navbar').classList.toggle('active');
+    }
+    window.addEventListener('click', function(e) {
+        const navbar = document.getElementById('navbar');
+        const menuIcon = document.querySelector('.menu-icon');
+        if (!navbar.contains(e.target) && !menuIcon.contains(e.target)) {
+            navbar.classList.remove('active');
+        }
+    });
+</script>
 </html>
