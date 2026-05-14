@@ -1,0 +1,149 @@
+/* Container for all images */
+.image-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+/* Individual Image Block */
+.image-item {
+    width: 48%;  /* Set width to 48% to fit two items in a row */
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s ease; /* Smooth transition on hover */
+}
+
+/* Image Styling */
+.image-item img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    transition: transform 0.2s ease; /* Smooth transition on hover */
+}
+
+/* Hover effect on image item */
+.image-item:hover {
+    transform: scale(1.05); /* Slightly scale the image when hovered */
+}
+
+/* Hover effect on image */
+.image-item img:hover {
+    transform: scale(1.1); /* Slightly scale the image itself when hovered */
+}
+
+/* Text on Image (optional) */
+.image-item .category-text {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 8px 10px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 767px) {
+    .image-item {
+        width: 48%; /* Two images per row on small screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .image-item {
+        width: 100%; /* One image per row on very small screens */
+    }
+}
+
+/* Header Styling */
+header {
+    background-color: #333;
+    padding: 20px 20px; /* Adjust padding for header */
+    position: fixed; /* Make the header fixed at the top */
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10; /* Ensure the header stays on top of other content */
+}
+
+header h2 {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    text-align: left; /* Align the title to the left */
+    margin: 0; /* Remove any default margin */
+}
+
+/* Footer Styling */
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 40px 20px;
+  margin-top: 4px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  position: relative;
+}
+.footer-section {
+  flex: 1 1 200px;
+  margin: 10px;
+}
+.footer-section h3 {
+  border-bottom: 1px solid #555;
+  padding-bottom: 10px;
+}
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+}
+.footer-section ul li {
+  margin: 8px 0;
+}
+.footer-section a {
+  color: #ccc;
+  text-decoration: none;
+}
+.footer-section a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+.social-icons {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+}
+.social-icons a {
+  color: #ccc;
+  font-size: 24px;
+  transition: color 0.3s;
+}
+.social-icons a:hover {
+  color: #1da1f2;
+}
+@media (max-width: 600px) {
+  footer {
+    flex-direction: column;
+    align-items: center;
+  }
+  .footer-section {
+    text-align: center;
+  }
+}
+
+}
+
+/* Ensure footer stays at the bottom when the content is smaller */
+body {
+    min-height: 100vh; /* Set the body to fill the full height of the screen */
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1; /* Allow main content to take available space */
+}

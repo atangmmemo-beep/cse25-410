@@ -1,0 +1,149 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body Styling */
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: Arial, sans-serif;
+    background-color: white;
+}
+
+/* Header Styling */
+header {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+}
+
+header h2 {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    text-align: left;
+    margin: 0;
+}
+
+header a {
+    color: white;
+    text-decoration: none;
+}
+
+/* Flex Container for Catalog */
+.catalog-wrapper {
+    display: flex;
+    justify-content: space-around;
+    gap: 40px;
+    padding: 40px;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 70vh; /* Set the desired height of the wrapper (80% of the viewport height, for example) */
+}
+
+.catalog-item {
+    background: white;
+    border-radius: 10px;
+    padding: 0; /* Removed padding to make image fill the entire space */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    flex: 1;
+    min-width: 250px; /* Adjusted to a smaller minimum width */
+    max-width: 400px; /* Adjusted to a larger max width */
+}
+
+.catalog-image {
+    display: grid;
+    place-items: center;
+    background: transparent; /* Make the background transparent */
+    padding: 0; /* Removed padding */
+    border-radius: 10px;
+    overflow: hidden; /* Ensures image stays within the rounded corners */
+}
+.catalog-image img {
+    width: 100%;
+    height: 230px; /* Adjust this value to set a fixed height */
+    object-fit: cover;
+}
+.catalog-content {
+    float: left; /* Floats the content to the left */
+    text-align: left; /* Ensures the text is aligned to the left */
+    margin-left: 10px; /* Optional: add left margin for spacing */
+}
+
+.catalog-content i {
+    margin-right:15px; /* Add space between icon and text */
+    font-size: 18px; /* Adjust icon size */
+    color: #003152; /* Change icon color */
+}
+
+.catalog-content i + i {
+    margin-left: 40px; /* Adds space between consecutive icons */
+}
+
+
+
+/* Main Content Styling */
+main {
+    flex: 1;
+    padding: 50px 10px 10px;
+    text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 767px) {
+    .catalog-wrapper {
+        flex-wrap: wrap; /* Allows wrapping for smaller screens */
+    }
+    .catalog-item {
+        max-width: 48%; /* Two per row on tablets */
+    }
+}
+
+@media (max-width: 480px) {
+    .catalog-item {
+        max-width: 100%; /* One per row on mobile */
+    }
+}
+
+/* Footer Styling */
+footer {
+    background-color: #ccc;
+    padding: 15px;
+    width: 100%;
+    text-align: center;
+    position: relative;
+    margin-top: 20px;
+}
+
+footer p {
+    font-size: 14px;
+    color: #333;
+}
+.details-button {
+    background-color: blue; /* You can change this to your preferred color */
+    border: none;
+    padding: 10px 20px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    width: 100%; /* Makes the button full-width */
+    box-sizing: border-box; /* Ensures padding doesn't overflow the width */
+}
+
+.details-button:hover {
+    background-color: #3FE0D0;
+}
