@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Car Rental System - SpotlessRide</title>
+    <title>Spotless - Premium Car Wash</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
     <script defer src="script.js"></script>
@@ -11,25 +11,28 @@
 
 <header>
     <div class="header-left">
-        <span class="menu-icon" onclick="toggleNav()">&#9776;</span> <!-- Menu icon without "X" -->
-		<a href="index.html" style="text-decoration: none;">
-        <h1 style="font-size: 24px; font-weight: bold; color: white;">SpotlessRide</h1>
-    </a>
+        <span class="menu-icon" onclick="toggleNav()">&#9776;</span>
+        <a href="index.html" style="text-decoration: none;">
+            <h1 style="font-size: 24px; font-weight: bold; color: white;">SpotlessRide</h1>
+        </a>
     </div>
 </header>
 
 <!-- Navigation Bar -->
 <nav id="navbar" class="navbar">
     <a href="index.html"><i class="fas fa-home"></i> Home</a>
-    <a href="Vehicles.HTML"><i class="fas fa-car"></i> Gallery</a>
-    <a href="About-Us.Html"><i class="fas fa-phone"></i> About us</a>
-    <a href="services.html"><i class="fas fa-cogs"></i> Services</a>
+    <a href="services.html"><i class="fas fa-soap"></i> Services</a>
+    <a href="About-Us.html"><i class="fas fa-phone"></i> About Us</a>
+    <a href="pricing.html"><i class="fas fa-tags"></i> Pricing</a>
     <a href="Contact Us.html"><i class="fas fa-envelope"></i> Contact</a>
 </nav>
 
 <body>
 
- <section id="hero">
+<!-- ===========================
+     HERO SECTION
+=========================== -->
+<section id="hero">
     <div class="hero-content">
 
         <!-- Booking Wrapper -->
@@ -37,10 +40,10 @@
 
             <!-- Tabs -->
             <div class="booking-tabs">
-                <button class="tab active">Cars</button>
-                <button class="tab">Trucks</button>
+                <button class="tab active">Car Wash</button>
+                <button class="tab">Full Valet</button>
                 <button class="tab">Subscription</button>
-                <button class="tab">Airport transfer</button>
+                <button class="tab">Fleet Wash</button>
             </div>
 
             <!-- Booking Form -->
@@ -50,26 +53,32 @@
 
                     <!-- Location -->
                     <div class="form-group location">
-                        <label>Pickup & return</label>
+                        <label>Your location</label>
                         <i class="fas fa-search"></i>
-                        <input type="text" id="location" placeholder="Airport, city or address" required>
+                        <input type="text" id="location" placeholder="Enter your address or nearest branch" required>
                     </div>
 
-                    <!-- Pickup -->
+                    <!-- Date -->
                     <div class="form-group">
-                        <label>Pickup date</label>
-                        <input type="datetime-local" id="pickupDate" required>
+                        <label>Appointment date</label>
+                        <input type="datetime-local" id="appointmentDate" required>
                     </div>
 
-                    <!-- Return -->
+                    <!-- Service -->
                     <div class="form-group">
-                        <label>Return date</label>
-                        <input type="datetime-local" id="returnDate" required>
+                        <label>Service type</label>
+                        <select id="serviceType" style="padding:15px; border-radius:12px; border:1px solid #ddd; font-size:14px;">
+                            <option value="">Select a service</option>
+                            <option value="basic">Basic Wash</option>
+                            <option value="premium">Premium Wash</option>
+                            <option value="valet">Full Valet</option>
+                            <option value="detailing">Paint Detailing</option>
+                        </select>
                     </div>
 
                     <!-- Button -->
                     <div class="form-group button-group">
-                        <button type="submit" class="search-btn">Show cars</button>
+                        <button type="submit" class="search-btn">Book Now</button>
                     </div>
 
                 </div>
@@ -77,11 +86,10 @@
                 <!-- Extra Options -->
                 <div class="extra-options">
                     <label class="checkbox">
-                        <input type="checkbox" id="differentLocation">
-                        Different return location
+                        <input type="checkbox" id="mobileService">
+                        Mobile wash (we come to you)
                     </label>
-
-                    <a href="#" class="corporate-link">Apply corporate rate</a>
+                    <a href="#" class="corporate-link">Apply fleet discount</a>
                 </div>
 
             </form>
@@ -90,17 +98,21 @@
 
     </div>
 </section>
+
+<!-- ===========================
+     SERVICES SLIDER SECTION
+=========================== -->
 <section class="car-slider-section">
-<div class="slider-heading">
-  <div class="slider-heading-left">
-    <span class="slider-tag">Hot Picks</span>
-    <h2>Trending Cars</h2>
-    <p>Our most-booked vehicles right now — loved by thousands of drivers. Reserve yours before it's gone.</p>
-  </div>
-  <div class="slider-heading-right">
-    <a href="#" class="slider-viewall">View all cars &rarr;</a>
-  </div>
-</div>
+    <div class="slider-heading">
+        <div class="slider-heading-left">
+            <span class="slider-tag">Customer Favourites</span>
+            <h2>Popular Services</h2>
+            <p>Our most-booked wash packages — trusted by thousands of happy drivers. Reserve your spot today.</p>
+        </div>
+        <div class="slider-heading-right">
+            <a href="#" class="slider-viewall">View all services &rarr;</a>
+        </div>
+    </div>
 
     <div class="slider-container">
 
@@ -112,62 +124,64 @@
         <!-- Slider -->
         <div class="car-slider" id="carSlider">
 
-            <!-- Car Card -->
             <div class="car-item">
-                <img src="X5.avif" alt="Car">
+                <img src="X5.avif" alt="Premium Wash">
                 <div class="overlay">
-                    <h3>BMW X5</h3>
-                    <p>From $120/day</p>
+                    <h3>Premium Exterior Wash</h3>
+                    <p>From $25/visit</p>
                     <span class="discount">20% OFF</span>
                 </div>
             </div>
 
             <div class="car-item">
-                <img src="Benz.jpg" alt="Car">
+                <img src="Benz.jpg" alt="Full Valet">
                 <div class="overlay">
-                    <h3>Mercedes C-Class</h3>
-                    <p>From $100/day</p>
+                    <h3>Full Interior Valet</h3>
+                    <p>From $80/visit</p>
                 </div>
             </div>
 
             <div class="car-item">
-                <img src="Tesla.jpeg" alt="Car">
+                <img src="Tesla.jpeg" alt="Express Wash">
                 <div class="overlay">
-                    <h3>Tesla Model 3</h3>
-                    <p>From $150/day</p>
+                    <h3>Express Wash</h3>
+                    <p>From $15/visit</p>
                     <span class="discount">New</span>
                 </div>
             </div>
+
             <div class="car-item">
-                <img src="G.webp" alt="Car">
+                <img src="G.webp" alt="Paint Detailing">
                 <div class="overlay">
-                    <h3><G-Wagon></G-Wagon></h3>
-                    <p>From $150/day</p>
+                    <h3>Paint Detailing</h3>
+                    <p>From $150/visit</p>
+                    <span class="discount">Popular</span>
+                </div>
+            </div>
+
+            <div class="car-item">
+                <img src="Tes.webp" alt="Ceramic Coating">
+                <div class="overlay">
+                    <h3>Ceramic Coating</h3>
+                    <p>From $199/visit</p>
                     <span class="discount">New</span>
                 </div>
             </div>
+
             <div class="car-item">
-                <img src="Tes.webp" alt="Car">
+                <img src="J.avif" alt="Luxury Detail">
                 <div class="overlay">
-                    <h3>Tesla Model 3</h3>
-                    <p>From $150/day</p>
-                    <span class="discount">New</span>
+                    <h3>Luxury Full Detail</h3>
+                    <p>From $250/visit</p>
+                    <span class="discount">Premium</span>
                 </div>
             </div>
+
             <div class="car-item">
-                <img src="J.avif" alt="Car">
+                <img src="Range.avif" alt="SUV Package">
                 <div class="overlay">
-                    <h3>Rolls Roys</h3>
-                    <p>From $150/day</p>
-                    <span class="discount">New</span>
-                </div>
-            </div>
-            <div class="car-item">
-                <img src="Range.avif" alt="Car">
-                <div class="overlay">
-                    <h3>Range Rover</h3>
-                    <p>From $150/day</p>
-                    <span class="discount">New</span>
+                    <h3>SUV & 4x4 Package</h3>
+                    <p>From $45/visit</p>
                 </div>
             </div>
 
@@ -179,296 +193,296 @@
         </button>
 
     </div>
-
 </section>
+
 <!-- ===========================
      APP DOWNLOAD SECTION
 =========================== -->
 <section class="app-section">
-  <div class="app-inner">
+    <div class="app-inner">
 
-    <!-- Left: Image -->
-    <div class="app-img-side">
-      <img src="car.webp" alt="Spotless Ride App" class="app-phone-img"/>
+        <!-- Left: Image -->
+        <div class="app-img-side">
+            <img src="car.webp" alt="SpotlessRide App" class="app-phone-img"/>
+        </div>
+
+        <!-- Right: Text -->
+        <div class="app-text-side">
+            <span class="app-platform">Android &amp; iOS</span>
+            <h2 class="app-heading">Sparkling clean,<br>booked from your phone</h2>
+            <p class="app-desc">
+                Your next wash is just a few taps away with the SpotlessRide app.
+                Download now and unlock exclusive member discounts, real-time bay tracking,
+                and instant booking — anytime, anywhere.
+            </p>
+            <a href="#" class="app-main-btn">Download the SpotlessRide App &rarr;</a>
+            <div class="app-store-btns">
+                <a href="#" class="store-btn">
+                    <span class="store-icon">&#63743;</span>
+                    <span class="store-label">
+                        <small>Download on the</small>
+                        App Store
+                    </span>
+                </a>
+                <a href="#" class="store-btn">
+                    <span class="store-icon gp">&#9654;</span>
+                    <span class="store-label">
+                        <small>GET IT ON</small>
+                        Google Play
+                    </span>
+                </a>
+            </div>
+        </div>
+
     </div>
-
-    <!-- Right: Text -->
-    <div class="app-text-side">
-      <span class="app-platform">Android &amp; iOS</span>
-      <h2 class="app-heading">Car rental made easy,<br>right from your phone</h2>
-      <p class="app-desc">
-        Your next ride is just a few taps away with the Spotless Ride app.
-        Download now and unlock exclusive member discounts, live tracking,
-        and instant booking — anytime, anywhere.
-      </p>
-      <a href="#" class="app-main-btn">Download the Spotless Ride App &rarr;</a>
-      <div class="app-store-btns">
-        <a href="#" class="store-btn">
-          <span class="store-icon">&#63743;</span>
-          <span class="store-label">
-            <small>Download on the</small>
-            App Store
-          </span>
-        </a>
-        <a href="#" class="store-btn">
-          <span class="store-icon gp">&#9654;</span>
-          <span class="store-label">
-            <small>GET IT ON</small>
-            Google Play
-          </span>
-        </a>
-      </div>
-    </div>
-
-  </div>
 </section>
+
 <!-- ===========================
      WHAT'S NEW SECTION
 =========================== -->
 <section class="news-section">
-  <div class="news-inner">
-    <h2 class="news-heading">What's new?</h2>
-    <p class="news-sub">Find all the latest news and updates from Spotless Ride here!</p>
+    <div class="news-inner">
+        <h2 class="news-heading">What's new?</h2>
+        <p class="news-sub">Find all the latest news and updates from SparkleWash here!</p>
 
-    <div class="news-grid">
+        <div class="news-grid">
 
-      <!-- Card 1 -->
-      <div class="news-card">
-        <div class="news-img-wrap">
-          <img src="car.webp" alt="Spotless One Membership" class="news-img"/>
-          <div class="news-overlay-badge">
-            <span>SPOTLESS</span>
-            <span class="badge-sub">FOR YOU ——</span>
-          </div>
-        </div>
-        <div class="news-body">
-          <span class="news-tag">Get more from every rental</span>
-          <h3 class="news-title">Unlock your Spotless One membership benefits</h3>
-          <p class="news-desc">Earn points instantly and secure up to 20% member discount for all future bookings.</p>
-          <a href="#" class="news-link">Join for free &rarr;</a>
-        </div>
-      </div>
+            <!-- Card 1 -->
+            <div class="news-card">
+                <div class="news-img-wrap">
+                    <img src="car.webp" alt="Spotless One Membership" class="news-img"/>
+                    <div class="news-overlay-badge">
+                        <span>SPOTLESS</span>
+                        <span class="badge-sub">FOR YOU ——</span>
+                    </div>
+                </div>
+                <div class="news-body">
+                    <span class="news-tag">Get more from every wash</span>
+                    <h3 class="news-title">Unlock your Spotless One membership benefits</h3>
+                    <p class="news-desc">Earn points instantly and secure up to 20% member discount on all future bookings.</p>
+                    <a href="#" class="news-link">Join for free &rarr;</a>
+                </div>
+            </div>
 
-      <!-- Card 2 -->
-      <div class="news-card">
-        <div class="news-img-wrap">
-          <img src="car.webp" alt="Destinations" class="news-img"/>
-        </div>
-        <div class="news-body">
-          <span class="news-tag">Places to go</span>
-          <h3 class="news-title">Where are you driving to on your next getaway?</h3>
-          <p class="news-desc">Discover our top destinations and hit the road in style. Perfect for couples, families, or solo adventures.</p>
-          <a href="#" class="news-link">Read more &rarr;</a>
-        </div>
-      </div>
+            <!-- Card 2 -->
+            <div class="news-card">
+                <div class="news-img-wrap">
+                    <img src="car.webp" alt="Eco Wash" class="news-img"/>
+                </div>
+                <div class="news-body">
+                    <span class="news-tag">Going green</span>
+                    <h3 class="news-title">Introducing our waterless eco-friendly wash option</h3>
+                    <p class="news-desc">Our new eco wash uses 90% less water without sacrificing shine. Better for your car, better for the planet.</p>
+                    <a href="#" class="news-link">Read more &rarr;</a>
+                </div>
+            </div>
 
-      <!-- Card 3 -->
-      <div class="news-card">
-        <div class="news-img-wrap">
-          <img src="car.webp" alt="Airport Transfers" class="news-img"/>
-        </div>
-        <div class="news-body">
-          <span class="news-tag">Travel tips</span>
-          <h3 class="news-title">5 reasons to book an airport transfer in advance</h3>
-          <p class="news-desc">Skip the queues, avoid surge pricing, and land stress-free with a pre-booked Spotless Ride transfer.</p>
-          <a href="#" class="news-link">Read more &rarr;</a>
-        </div>
-      </div>
+            <!-- Card 3 -->
+            <div class="news-card">
+                <div class="news-img-wrap">
+                    <img src="car.webp" alt="Mobile Wash" class="news-img"/>
+                </div>
+                <div class="news-body">
+                    <span class="news-tag">Tips &amp; tricks</span>
+                    <h3 class="news-title">5 reasons to book a mobile wash instead of driving in</h3>
+                    <p class="news-desc">Save time, skip the queue, and get a showroom finish delivered straight to your driveway or office.</p>
+                    <a href="#" class="news-link">Read more &rarr;</a>
+                </div>
+            </div>
 
+        </div>
     </div>
-  </div>
 </section>
+
 <!-- ===========================
      FAQ SECTION (Netflix style)
 =========================== -->
 <section class="faq2-section">
-  <div class="faq2-inner">
-    <h2 class="faq2-heading">Frequently Asked Questions</h2>
+    <div class="faq2-inner">
+        <h2 class="faq2-heading">Frequently Asked Questions</h2>
 
-    <div class="faq2-list">
+        <div class="faq2-list">
 
-      <div class="faq2-item">
-        <button class="faq2-q" onclick="toggleFaq2(this)">
-          What documents do I need to rent a car?
-          <span class="faq2-icon">+</span>
-        </button>
-        <div class="faq2-a">
-          <p>You'll need a valid driver's licence, a credit or debit card in your name, and a government-issued ID. International renters should also bring their passport and an International Driving Permit if applicable.</p>
+            <div class="faq2-item">
+                <button class="faq2-q" onclick="toggleFaq2(this)">
+                    What's included in a Full Valet?
+                    <span class="faq2-icon">+</span>
+                </button>
+                <div class="faq2-a">
+                    <p>Our Full Valet includes a thorough exterior hand wash, wheel cleaning, tyre dressing, interior vacuum, dashboard and console wipe-down, window clean inside and out, and an air freshener. It's our most comprehensive clean, typically taking 2–3 hours.</p>
+                </div>
+            </div>
+
+            <div class="faq2-item">
+                <button class="faq2-q" onclick="toggleFaq2(this)">
+                    How do I book an appointment?
+                    <span class="faq2-icon">+</span>
+                </button>
+                <div class="faq2-a">
+                    <p>Simply enter your location, choose your preferred date and time, select a service, and confirm your booking online in under 2 minutes. You'll receive an instant confirmation with all your details.</p>
+                </div>
+            </div>
+
+            <div class="faq2-item">
+                <button class="faq2-q" onclick="toggleFaq2(this)">
+                    Can I cancel or reschedule my booking?
+                    <span class="faq2-icon">+</span>
+                </button>
+                <div class="faq2-a">
+                    <p>Yes — you can cancel or reschedule free of charge up to 24 hours before your appointment. Changes within 24 hours may incur a small fee depending on the service booked.</p>
+                </div>
+            </div>
+
+            <div class="faq2-item">
+                <button class="faq2-q" onclick="toggleFaq2(this)">
+                    Do you offer a mobile wash service?
+                    <span class="faq2-icon">+</span>
+                </button>
+                <div class="faq2-a">
+                    <p>Yes! Our mobile wash team comes directly to your home, office, or any location of your choice. All we need is access to a power outlet and a tap. Available for most of our wash packages at a small travel surcharge.</p>
+                </div>
+            </div>
+
+            <div class="faq2-item">
+                <button class="faq2-q" onclick="toggleFaq2(this)">
+                    How long does a wash take?
+                    <span class="faq2-icon">+</span>
+                </button>
+                <div class="faq2-a">
+                    <p>Express wash takes around 15–20 minutes. A Premium Exterior Wash takes 45–60 minutes. A Full Valet is 2–3 hours, and Paint Detailing or Ceramic Coating may take a full day. We'll give you a time estimate at booking.</p>
+                </div>
+            </div>
+
+            <div class="faq2-item">
+                <button class="faq2-q" onclick="toggleFaq2(this)">
+                    What products do you use?
+                    <span class="faq2-icon">+</span>
+                </button>
+                <div class="faq2-a">
+                    <p>We use premium, pH-neutral, eco-friendly car care products that are safe for all paint types, including matte and wrapped finishes. All our cleaning agents are biodegradable and water-efficient.</p>
+                </div>
+            </div>
+
+            <div class="faq2-item">
+                <button class="faq2-q" onclick="toggleFaq2(this)">
+                    How does the Spotless One membership work?
+                    <span class="faq2-icon">+</span>
+                </button>
+                <div class="faq2-a">
+                    <p>Spotless One is our free loyalty programme. Every wash earns you points that unlock exclusive discounts of up to 20% off future bookings. Join for free during signup and start saving from your very first visit.</p>
+                </div>
+            </div>
+
         </div>
-      </div>
-
-      <div class="faq2-item">
-        <button class="faq2-q" onclick="toggleFaq2(this)">
-          How do I make a reservation?
-          <span class="faq2-icon">+</span>
-        </button>
-        <div class="faq2-a">
-          <p>Simply enter your pickup location, choose your dates, select a vehicle, and confirm your booking online in under 2 minutes. You'll receive an instant confirmation email with all your details.</p>
-        </div>
-      </div>
-
-      <div class="faq2-item">
-        <button class="faq2-q" onclick="toggleFaq2(this)">
-          Can I cancel or modify my booking?
-          <span class="faq2-icon">+</span>
-        </button>
-        <div class="faq2-a">
-          <p>Yes — you can cancel or modify your booking free of charge up to 48 hours before your scheduled pickup. Cancellations within 48 hours may incur a small fee depending on the vehicle category.</p>
-        </div>
-      </div>
-
-      <div class="faq2-item">
-        <button class="faq2-q" onclick="toggleFaq2(this)">
-          Is fuel included in the rental price?
-          <span class="faq2-icon">+</span>
-        </button>
-        <div class="faq2-a">
-          <p>All vehicles are provided with a full tank of fuel. We ask that you return the car with a full tank. If the vehicle is returned with less fuel, a refuelling fee will be charged based on the amount needed.</p>
-        </div>
-      </div>
-
-      <div class="faq2-item">
-        <button class="faq2-q" onclick="toggleFaq2(this)">
-          What is the minimum age to rent a car?
-          <span class="faq2-icon">+</span>
-        </button>
-        <div class="faq2-a">
-          <p>The minimum rental age is 21 years old. Drivers between 21 and 24 may be subject to a young driver surcharge, which varies by vehicle class. Drivers 25 and above are not affected by any age surcharge.</p>
-        </div>
-      </div>
-
-      <div class="faq2-item">
-        <button class="faq2-q" onclick="toggleFaq2(this)">
-          What insurance options are available?
-          <span class="faq2-icon">+</span>
-        </button>
-        <div class="faq2-a">
-          <p>We offer three coverage tiers — Basic, Standard, and Premium. Basic includes third-party liability and theft protection. Standard adds collision damage waiver and zero excess. Premium covers everything including windscreen, tyres, and international use.</p>
-        </div>
-      </div>
-
-      <div class="faq2-item">
-        <button class="faq2-q" onclick="toggleFaq2(this)">
-          How does the Spotless One membership work?
-          <span class="faq2-icon">+</span>
-        </button>
-        <div class="faq2-a">
-          <p>Spotless One is our free loyalty programme. Every rental earns you points that unlock exclusive discounts of up to 20% off future bookings. Join for free during signup and start saving from your very first rental.</p>
-        </div>
-      </div>
-
     </div>
-  </div>
 </section>
+
 <!-- ===========================
      FOOTER
 =========================== -->
 <footer class="site-footer">
 
-  <!-- Top bar: Logo + Socials -->
-  <div class="footer-topbar">
-    <div class="footer-logo">Spotless<span>Ride</span></div>
-    <div class="footer-socials">
-      <a href="#" aria-label="Instagram">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg>
-      </a>
-      <a href="#" aria-label="LinkedIn">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-      </a>
-      <a href="#" aria-label="Facebook">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-      </a>
-      <a href="#" aria-label="YouTube">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58a2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58zM9.75 15.02V8.98L15.5 12l-5.75 3.02z"/></svg>
-      </a>
-    </div>
-  </div>
-
-  <div class="footer-divider"></div>
-
-  <!-- Main link columns -->
-  <div class="footer-cols">
-
-    <div class="footer-col">
-      <h4>Our Services</h4>
-      <a href="#">Car Rental</a>
-      <a href="#">Truck Rental</a>
-      <a href="#">Airport Transfer</a>
-      <a href="#">Subscription Plans</a>
-      <a href="#">Spotless Ride App</a>
+    <!-- Top bar: Logo + Socials -->
+    <div class="footer-topbar">
+        <div class="footer-logo">Spotless<span>Ride</span></div>
+        <div class="footer-socials">
+            <a href="#" aria-label="Instagram">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg>
+            </a>
+            <a href="#" aria-label="LinkedIn">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            </a>
+            <a href="#" aria-label="Facebook">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            </a>
+            <a href="#" aria-label="YouTube">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58a2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58zM9.75 15.02V8.98L15.5 12l-5.75 3.02z"/></svg>
+            </a>
+        </div>
     </div>
 
-    <div class="footer-col">
-      <h4>For Business</h4>
-      <a href="#">Register My Business</a>
-      <a href="#">Corporate Rates</a>
-      <a href="#">Fleet Solutions</a>
-      <a href="#">Travel Agencies</a>
+    <div class="footer-divider"></div>
+
+    <!-- Main link columns -->
+    <div class="footer-cols">
+
+        <div class="footer-col">
+            <h4>Our Services</h4>
+            <a href="#">Express Wash</a>
+            <a href="#">Premium Wash</a>
+            <a href="#">Full Valet</a>
+            <a href="#">Paint Detailing</a>
+            <a href="#">Ceramic Coating</a>
+        </div>
+
+        <div class="footer-col">
+            <h4>For Business</h4>
+            <a href="#">Register My Business</a>
+            <a href="#">Fleet Wash Plans</a>
+            <a href="#">Corporate Accounts</a>
+            <a href="#">Dealership Packages</a>
+        </div>
+
+        <div class="footer-col">
+            <h4>Members</h4>
+            <a href="#">Spotless One Rewards</a>
+            <a href="#">Member Deals</a>
+            <a href="#">Referral Program</a>
+            <a href="#">Points &amp; Perks</a>
+        </div>
+
+        <div class="footer-col">
+            <h4>About Us</h4>
+            <a href="#">Our Story</a>
+            <a href="#">News &amp; Blog</a>
+            <a href="#">Careers</a>
+            <a href="#">Press</a>
+            <a href="#">Sustainability</a>
+        </div>
+
+        <div class="footer-col">
+            <h4>Help &amp; Support</h4>
+            <a href="#">Help Centre</a>
+            <a href="#">Contact Us</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Cookie Settings</a>
+        </div>
+
     </div>
 
-    <div class="footer-col">
-      <h4>Members</h4>
-      <a href="#">Spotless One Rewards</a>
-      <a href="#">Member Deals</a>
-      <a href="#">Referral Program</a>
-      <a href="#">Points &amp; Perks</a>
+    <div class="footer-divider"></div>
+
+    <!-- Bottom bar -->
+    <div class="footer-bottom">
+        <div class="footer-store-btns">
+            <a href="#" class="f-store-btn">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                <span>
+                    <small>Download on the</small>
+                    App Store
+                </span>
+            </a>
+            <a href="#" class="f-store-btn">
+                <svg viewBox="0 0 24 24" fill="none" width="20" height="20"><path d="M3 20.5v-17c0-.83 1-.83 1.5-.5l14 8.5-14 8.5c-.5.33-1.5.33-1.5-.5z" fill="#4CAF50"/><path d="M3 3.5l10 10L3 20.5V3.5z" fill="#81C784"/><path d="M17.5 11.5l-4.5 2-10-10 14.5 8z" fill="#FF7043"/><path d="M17.5 12.5L3 20.5l10-10 4.5 2z" fill="#FFCA28"/></svg>
+                <span>
+                    <small>GET IT ON</small>
+                    Google Play
+                </span>
+            </a>
+        </div>
+
+        <div class="footer-pay">
+            <span>VISA</span>
+            <span>MC</span>
+            <span>AMEX</span>
+            <span>PayPal</span>
+        </div>
+
+        <p class="footer-copy">&copy; 2025 SpotlessRide. All rights reserved.</p>
     </div>
-
-    <div class="footer-col">
-      <h4>About Us</h4>
-      <a href="#">Our Story</a>
-      <a href="#">News &amp; Blog</a>
-      <a href="#">Careers</a>
-      <a href="#">Press</a>
-      <a href="#">Investor Relations</a>
-    </div>
-
-    <div class="footer-col">
-      <h4>Help &amp; Support</h4>
-      <a href="#">Help Centre</a>
-      <a href="#">Contact Us</a>
-      <a href="#">Privacy Policy</a>
-      <a href="#">Terms of Service</a>
-      <a href="#">Cookie Settings</a>
-    </div>
-
-  </div>
-
-  <div class="footer-divider"></div>
-
-  <!-- Bottom bar -->
-  <div class="footer-bottom">
-    <div class="footer-store-btns">
-      <a href="#" class="f-store-btn">
-        <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-        <span>
-          <small>Download on the</small>
-          App Store
-        </span>
-      </a>
-      <a href="#" class="f-store-btn">
-        <svg viewBox="0 0 24 24" fill="none" width="20" height="20"><path d="M3 20.5v-17c0-.83 1-.83 1.5-.5l14 8.5-14 8.5c-.5.33-1.5.33-1.5-.5z" fill="#4CAF50"/><path d="M3 3.5l10 10L3 20.5V3.5z" fill="#81C784"/><path d="M17.5 11.5l-4.5 2-10-10 14.5 8z" fill="#FF7043"/><path d="M17.5 12.5L3 20.5l10-10 4.5 2z" fill="#FFCA28"/></svg>
-        <span>
-          <small>GET IT ON</small>
-          Google Play
-        </span>
-      </a>
-    </div>
-
-    <div class="footer-pay">
-      <span>VISA</span>
-      <span>MC</span>
-      <span>AMEX</span>
-      <span>PayPal</span>
-    </div>
-
-    <p class="footer-copy">&copy; 2025 Spotless Ride. All rights reserved.</p>
-  </div>
 
 </footer>
 
-
 </body>
 </html>
-
-                                                                                  
