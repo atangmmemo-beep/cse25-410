@@ -3,19 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us - FlexRide</title>
+    <title>About Us - SpotlessRide</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
 
-        /* ===== HEADER ===== */
         header { background-color:black; color:white; padding:15px 20px; display:flex; justify-content:space-between; align-items:center; position:fixed; top:0;left:0; width:100%; z-index:1000; }
         .header-left { display:flex; align-items:center; }
         .menu-icon { font-size:30px; cursor:pointer; color:white; margin-right:10px; }
         .header-right { margin-left:auto; }
         .auth-link { font-size:13px; color:white; text-decoration:none; padding:10px; border:1px solid white; border-radius:2px; }
 
-        /* ===== NAVBAR ===== */
         .navbar { position:fixed; top:60px; left:0; width:100%; height:calc(100vh - 60px); background-color:rgba(0,0,0,0.95); transition:transform 0.5s ease-in-out; transform:translateY(-100%); z-index:999; display:flex; flex-direction:column; align-items:flex-start; justify-content:flex-start; padding:20px; }
         .navbar.active { transform:translateY(0); }
         .navbar a { display:flex; align-items:center; padding:15px 20px; text-decoration:none; font-size:24px; color:white; width:100%; transition:background 0.3s ease, color 0.3s ease; border-bottom:1px solid rgba(255,255,255,0.2); }
@@ -23,58 +21,30 @@
         .navbar a:last-child { border-bottom:none; }
         .navbar a i { margin-right:10px; }
 
-        /* ===== PAGE HERO ===== */
-        .page-hero {
-            margin-top: 60px;
-            background: #0a0a0a;
-            padding: 100px 40px 80px;
-            text-align: center;
-            color: white;
-            position: relative;
-            overflow: hidden;
-        }
-        .page-hero::after {
-            content: '';
-            position: absolute;
-            bottom: -80px; left: 50%; transform: translateX(-50%);
-            width: 600px; height: 200px;
-            background: radial-gradient(ellipse, rgba(232,76,14,0.18) 0%, transparent 70%);
-            pointer-events: none;
-        }
+        .page-hero { margin-top:60px; background:#0a0a0a; padding:100px 40px 80px; text-align:center; color:white; position:relative; overflow:hidden; }
+        .page-hero::after { content:''; position:absolute; bottom:-80px; left:50%; transform:translateX(-50%); width:600px; height:200px; background:radial-gradient(ellipse, rgba(232,76,14,0.18) 0%, transparent 70%); pointer-events:none; }
         .page-hero-tag { font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:3px;color:#e84c0e;margin-bottom:14px;display:block; }
         .page-hero h1 { font-size:clamp(36px,5.5vw,62px); font-weight:900; line-height:1.1; margin-bottom:20px; }
         .page-hero h1 em { color:#e84c0e; font-style:normal; }
         .page-hero p { font-size:16px; color:rgba(255,255,255,0.6); max-width:520px; margin:0 auto; line-height:1.7; }
 
-        /* ===== STATS STRIP ===== */
         .stats-strip { background:#e84c0e; padding:36px 40px; }
         .stats-inner { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit, minmax(180px,1fr)); gap:20px; text-align:center; }
         .stat-num { font-size:38px; font-weight:900; color:#fff; line-height:1; }
         .stat-label { font-size:13px; color:rgba(255,255,255,0.8); margin-top:6px; font-weight:600; text-transform:uppercase; letter-spacing:1px; }
 
-        /* ===== STORY SECTION ===== */
         .story-section { background:#fff; padding:90px 40px; }
         .story-inner { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:70px; align-items:center; }
         .story-text .section-label { font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:3px;color:#e84c0e;display:block;margin-bottom:14px; }
         .story-text h2 { font-size:clamp(28px,3.5vw,40px); font-weight:900; color:#111; margin-bottom:22px; line-height:1.2; }
         .story-text p { font-size:15px; color:#666; line-height:1.75; margin-bottom:18px; }
         .story-img-side { position:relative; }
-        .story-img-box {
-            border-radius:16px; overflow:hidden; height:440px;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-            display:flex; align-items:center; justify-content:center;
-        }
-        .story-img-box i { font-size:80px; color:rgba(232,76,14,0.3); }
-        .story-badge {
-            position:absolute; bottom:-20px; right:-20px;
-            background:#e84c0e; color:#fff;
-            padding:22px 28px; border-radius:14px;
-            text-align:center; box-shadow:0 8px 28px rgba(232,76,14,0.35);
-        }
+        .story-img-box { border-radius:16px; overflow:hidden; height:440px; background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%); display:flex; align-items:center; justify-content:center; }
+        .story-img-box img { width:100%; height:100%; object-fit:cover; display:block; }
+        .story-badge { position:absolute; bottom:-20px; right:-20px; background:#e84c0e; color:#fff; padding:22px 28px; border-radius:14px; text-align:center; box-shadow:0 8px 28px rgba(232,76,14,0.35); }
         .story-badge .b-num { font-size:34px; font-weight:900; }
         .story-badge .b-label { font-size:12px; opacity:0.85; margin-top:4px; }
 
-        /* ===== MISSION / VALUES ===== */
         .values-section { background:#f7f7f7; padding:80px 40px; }
         .values-inner { max-width:1100px; margin:0 auto; }
         .section-label { font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:3px;color:#e84c0e;display:block;margin-bottom:12px; }
@@ -87,43 +57,28 @@
         .value-card h3 { font-size:19px; font-weight:800; color:#111; margin-bottom:10px; }
         .value-card p { font-size:14px; color:#666; line-height:1.65; }
 
-        /* ===== TEAM SECTION ===== */
         .team-section { background:#fff; padding:80px 40px; }
         .team-inner { max-width:1100px; margin:0 auto; }
-        .team-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:28px; margin-top:0; }
+        .team-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:28px; }
         .team-card { text-align:center; }
-        .team-avatar {
-            width:120px; height:120px; border-radius:50%;
-            background:linear-gradient(135deg,#1a1a2e,#e84c0e);
-            margin:0 auto 16px;
-            display:flex; align-items:center; justify-content:center;
-        }
-        .team-avatar i { font-size:40px; color:rgba(255,255,255,0.6); }
+        .team-avatar { width:100px; height:100px; border-radius:50%; overflow:hidden; margin:0 auto 18px; border:3px solid #e84c0e; }
+        .team-avatar img { width:100%; height:100%; object-fit:cover; display:block; }
         .team-card h4 { font-size:17px; font-weight:800; color:#111; margin-bottom:4px; }
         .team-card .role { font-size:13px; color:#e84c0e; font-weight:600; margin-bottom:8px; }
         .team-card p { font-size:13px; color:#777; line-height:1.6; }
 
-        /* ===== TIMELINE ===== */
         .timeline-section { background:#111; padding:80px 40px; color:white; }
         .timeline-inner { max-width:760px; margin:0 auto; }
         .timeline-section .section-label { color:#e84c0e; }
         .timeline-section .section-heading { color:#fff; }
         .timeline-section .section-sub { color:rgba(255,255,255,0.55); }
-        .timeline { position:relative; padding-left:40px; border-left:2px solid rgba(255,255,255,0.12); margin-top:0; }
+        .timeline { position:relative; padding-left:40px; border-left:2px solid rgba(255,255,255,0.12); }
         .timeline-item { position:relative; margin-bottom:40px; }
-        .timeline-item::before {
-            content:''; position:absolute;
-            left:-48px; top:4px;
-            width:14px; height:14px;
-            border-radius:50%; background:#e84c0e;
-            border:3px solid #111;
-            box-shadow:0 0 0 2px #e84c0e;
-        }
+        .timeline-item::before { content:''; position:absolute; left:-48px; top:4px; width:14px; height:14px; border-radius:50%; background:#e84c0e; border:3px solid #111; box-shadow:0 0 0 2px #e84c0e; }
         .timeline-year { font-size:12px;font-weight:700;color:#e84c0e;text-transform:uppercase;letter-spacing:2px;margin-bottom:6px; }
         .timeline-item h4 { font-size:18px; font-weight:800; color:#fff; margin-bottom:6px; }
         .timeline-item p { font-size:14px; color:rgba(255,255,255,0.6); line-height:1.65; }
 
-        /* ===== FOOTER ===== */
         .site-footer { background:#111; color:rgba(255,255,255,0.65); padding:50px 40px 30px; font-size:14px; }
         .footer-topbar { display:flex; align-items:center; justify-content:space-between; margin-bottom:32px; }
         .footer-logo { font-size:26px; font-weight:900; color:#fff; letter-spacing:-0.5px; }
@@ -147,44 +102,15 @@
         .footer-pay span { background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-radius:5px;padding:5px 12px;font-size:11px;font-weight:700;color:rgba(255,255,255,0.6);letter-spacing:0.5px; }
         .footer-copy { font-size:12px;color:rgba(255,255,255,0.3);margin:0; }
 
-        @media (max-width: 768px) {
+        @media (max-width:768px) {
             .story-inner { grid-template-columns:1fr; gap:40px; }
             .story-badge { right:0; }
             .stats-strip { padding:28px 20px; }
-            .story-section, .values-section, .team-section, .timeline-section { padding:50px 20px; }
+            .story-section,.values-section,.team-section,.timeline-section { padding:50px 20px; }
             .page-hero { padding:70px 20px 60px; }
             .footer-cols { grid-template-columns:1fr 1fr; }
-            .footer-topbar { flex-direction:column; align-items:flex-start; gap:18px; }
-            .footer-bottom { flex-direction:column; align-items:flex-start; }
+            .footer-topbar,.footer-bottom { flex-direction:column; align-items:flex-start; gap:18px; }
         }
-        .team-avatar {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    overflow: hidden;
-    margin: 0 auto 18px;
-    border: 3px solid #e84c0e;
-}
-
-.team-avatar img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
-.story-img-box {
-    width: 100%;
-    height: 100%;
-    border-radius: 16px;
-    overflow: hidden;
-}
-
-.story-img-box img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
     </style>
 </head>
 
@@ -195,184 +121,154 @@
             <h1 style="font-size:24px;font-weight:bold;color:white;">SpotlessRide</h1>
         </a>
     </div>
-   
 </header>
 
 <nav id="navbar" class="navbar">
     <a href="index.html"><i class="fas fa-home"></i> Home</a>
-    <a href="Vehicles.HTML"><i class="fas fa-car"></i> Gallery</a>
-    <a href="About-Us.html"><i class="fas fa-phone"></i> About us</a>
-    <a href="services.html"><i class="fas fa-cogs"></i> Services</a>
+    <a href="Vehicles.HTML"><i class="fas fa-images"></i> Gallery</a>
+    <a href="About-Us.html"><i class="fas fa-info-circle"></i> About Us</a>
+    <a href="services.html"><i class="fas fa-soap"></i> Services</a>
     <a href="Contact Us.html"><i class="fas fa-envelope"></i> Contact</a>
 </nav>
 
 <body>
 
-<!-- PAGE HERO -->
 <section class="page-hero">
     <span class="page-hero-tag">Our Story</span>
-    <h1>Born to move.<br>Built for <em>people</em>.</h1>
-    <p>SpotlessRide started with one simple belief — getting from A to B should be effortless, affordable, and even enjoyable.</p>
+    <h1>Born to shine.<br>Built for <em>your car</em>.</h1>
+    <p>SpotlessShine started with one simple belief — getting your car cleaned should be fast, affordable, and deliver results you can actually see.</p>
 </section>
 
-<!-- STATS STRIP -->
 <section class="stats-strip">
     <div class="stats-inner">
-        <div>
-            <div class="stat-num">200+</div>
-            <div class="stat-label">Pickup Locations</div>
-        </div>
-        <div>
-            <div class="stat-num">50K+</div>
-            <div class="stat-label">Happy Customers</div>
-        </div>
-        <div>
-            <div class="stat-num">1,200+</div>
-            <div class="stat-label">Vehicles in Fleet</div>
-        </div>
-        <div>
-            <div class="stat-num">4.8★</div>
-            <div class="stat-label">Average Rating</div>
-        </div>
-        <div>
-            <div class="stat-num">8yrs</div>
-            <div class="stat-label">In Business</div>
-        </div>
+        <div><div class="stat-num">15+</div><div class="stat-label">Wash Locations</div></div>
+        <div><div class="stat-num">80K+</div><div class="stat-label">Cars Washed</div></div>
+        <div><div class="stat-num">50+</div><div class="stat-label">Expert Detailers</div></div>
+        <div><div class="stat-num">4.9★</div><div class="stat-label">Average Rating</div></div>
+        <div><div class="stat-num">6yrs</div><div class="stat-label">In Business</div></div>
     </div>
 </section>
 
-<!-- STORY -->
 <section class="story-section">
     <div class="story-inner">
         <div class="story-text">
             <span class="section-label">Who We Are</span>
-            <h2>We rethought car rental. From scratch.</h2>
-            <p>SpotlessRide was founded in 2016 by a team of travel enthusiasts frustrated by outdated rental companies — hidden fees, long queues, and vehicles that felt like an afterthought.</p>
-            <p>We set out to build something completely different: a digital-first rental experience that puts the customer in control. No paperwork. No surprises. Just the keys and the open road.</p>
-            <p>Today, SpotlessRide operates across South Africa with over 1,200 vehicles and a community of more than 50,000 loyal drivers. But our mission hasn't changed — make every journey feel like it was built just for you.</p>
+            <h2>We rethought car washing. From scratch.</h2>
+            <p>SpotlessShine was founded in 2018 by a team of car enthusiasts frustrated by rushed, low-quality washes — vehicles returned damp, streaky, and no cleaner than before.</p>
+            <p>We set out to build something completely different: a professional-grade wash experience that puts quality first. No shortcuts. No water spots. Just a gleaming, spotless finish every single time.</p>
+            <p>Today, SpotlessShine operates across South Africa with 15 premium wash bays and over 80,000 loyal customers. But our mission hasn't changed — make every car look like it just rolled out of the showroom.</p>
         </div>
         <div class="story-img-side">
             <div class="story-img-box">
-                <img src="Road.jpg" alt="Open road">
+                <img src="Road.jpg" alt="Car wash in action">
             </div>
             <div class="story-badge">
-                <div class="b-num">2016</div>
+                <div class="b-num">2018</div>
                 <div class="b-label">Est. Johannesburg</div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- VALUES -->
 <section class="values-section">
     <div class="values-inner">
         <span class="section-label">What Drives Us</span>
         <h2 class="section-heading">Our core values</h2>
-        <p class="section-sub">Everything we build, every decision we make, comes back to these four principles.</p>
+        <p class="section-sub">Every product we use, every process we follow, every team member we hire — it all comes back to these four principles.</p>
         <div class="values-grid">
             <div class="value-card">
                 <div class="value-icon"><i class="fas fa-heart"></i></div>
                 <h3>Customer First</h3>
-                <p>Every feature, every policy, and every hire is shaped around making your experience better. Full stop.</p>
+                <p>Every service, every process, and every hire is shaped around making your experience better. Full stop.</p>
             </div>
             <div class="value-card">
                 <div class="value-icon"><i class="fas fa-eye"></i></div>
-                <h3>Radical Transparency</h3>
-                <p>No hidden fees. No small print surprises. What you see is what you pay — guaranteed.</p>
+                <h3>Spotless Standards</h3>
+                <p>No missed spots. No hidden charges. Every wash is inspected before handover — if it's not perfect, we redo it free of charge.</p>
             </div>
             <div class="value-card">
                 <div class="value-icon"><i class="fas fa-leaf"></i></div>
-                <h3>Sustainability</h3>
-                <p>We're building a greener fleet every year. Our EV programme and carbon offset initiative are just the beginning.</p>
+                <h3>Eco-Conscious</h3>
+                <p>We use biodegradable products and water-recycling systems at every location. A clean car shouldn't cost the planet.</p>
             </div>
             <div class="value-card">
                 <div class="value-icon"><i class="fas fa-rocket"></i></div>
                 <h3>Always Improving</h3>
-                <p>We listen, learn, and constantly iterate. Customer feedback shapes every product update we ship.</p>
+                <p>We train constantly, invest in new techniques, and listen to every review. Your feedback shapes every service update we make.</p>
             </div>
         </div>
     </div>
 </section>
-<!-- TEAM -->
+
 <section class="team-section">
     <div class="team-inner">
         <span class="section-label">The People</span>
         <h2 class="section-heading">Meet the team</h2>
-        <p class="section-sub">A passionate crew of operators, engineers, and road-trip lovers building the future of mobility.</p>
+        <p class="section-sub">A passionate crew of detailing experts, operations managers, and car lovers building South Africa's finest wash experience.</p>
         <div class="team-grid">
             <div class="team-card">
-                <div class="team-avatar">
-                    <img src="Ceo.jpg" alt="Sipho Dlamini">
-                </div>
+                <div class="team-avatar"><img src="Ceo.jpg" alt="Sipho Dlamini"></div>
                 <h4>Sipho Dlamini</h4>
                 <div class="role">Co-Founder & CEO</div>
-                <p>Former logistics executive turned startup founder. Sipho's vision drives SpotlessRide forward every day.</p>
+                <p>Former automotive industry executive turned entrepreneur. Sipho's obsession with clean cars drives SpotlessShine forward every day.</p>
             </div>
             <div class="team-card">
-                <div class="team-avatar">
-                    <img src="CTO.avif" alt="Ayanda Mokoena">
-                </div>
+                <div class="team-avatar"><img src="CTO.avif" alt="Ayanda Mokoena"></div>
                 <h4>Ayanda Mokoena</h4>
-                <div class="role">Co-Founder & CTO</div>
-                <p>Engineer by training, product thinker by nature. Ayanda built our booking platform from the ground up.</p>
+                <div class="role">Co-Founder & Operations Director</div>
+                <p>Systems thinker by nature. Ayanda built our wash bay processes and quality-control standards from the ground up.</p>
             </div>
             <div class="team-card">
-                <div class="team-avatar">
-                    <img src="Head.jpg" alt="Lerato Nkosi">
-                </div>
+                <div class="team-avatar"><img src="Head.jpg" alt="Lerato Nkosi"></div>
                 <h4>Lerato Nkosi</h4>
                 <div class="role">Head of Customer Experience</div>
-                <p>On a personal mission to make every single customer interaction feel human and effortless.</p>
+                <p>On a personal mission to make sure every customer drives away smiling — and comes back next week.</p>
             </div>
             <div class="team-card">
-                <div class="team-avatar">
-                    <img src="ana.jpg" alt="Tendai Phiri">
-                </div>
+                <div class="team-avatar"><img src="ana.jpg" alt="Tendai Phiri"></div>
                 <h4>Tendai Phiri</h4>
-                <div class="role">Head of Fleet Operations</div>
-                <p>If it has wheels, Tendai knows it. Keeps 1,200+ vehicles in perfect condition, every single day.</p>
+                <div class="role">Head Detailing Specialist</div>
+                <p>If it has paintwork, Tendai knows how to make it shine. Leads our team of 50+ professional detailers across all locations.</p>
             </div>
         </div>
     </div>
 </section>
 
-<!-- TIMELINE -->
 <section class="timeline-section">
     <div class="timeline-inner">
         <span class="section-label">Our Journey</span>
         <h2 class="section-heading" style="color:#fff;">How we got here</h2>
-        <p class="section-sub">From a startup with 12 cars to South Africa's most-loved rental platform.</p>
+        <p class="section-sub">From a single wash bay to South Africa's most-loved car wash brand.</p>
         <div class="timeline">
             <div class="timeline-item">
-                <div class="timeline-year">2016</div>
-                <h4>FlexRide is born</h4>
-                <p>Launched in Johannesburg with 12 vehicles and a big dream. First 100 customers served in month one.</p>
-            </div>
-            <div class="timeline-item">
                 <div class="timeline-year">2018</div>
-                <h4>Mobile app launch</h4>
-                <p>Our iOS and Android app goes live, enabling fully paperless booking for the first time in SA.</p>
+                <h4>SpotlessShine is born</h4>
+                <p>Opened our first wash bay in Johannesburg with a team of 5. First 500 customers served in month one.</p>
             </div>
             <div class="timeline-item">
-                <div class="timeline-year">2020</div>
-                <h4>Airport transfer network</h4>
-                <p>Expanded to 14 major airports across South Africa. 50,000 airport trips completed in year one.</p>
+                <div class="timeline-year">2019</div>
+                <h4>Premium detailing suite launched</h4>
+                <p>Added interior detailing and paint correction services — a first for the Sandton area.</p>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-year">2021</div>
+                <h4>Booking app goes live</h4>
+                <p>Our iOS and Android app launches, enabling fully cashless, queue-free booking across all locations.</p>
             </div>
             <div class="timeline-item">
                 <div class="timeline-year">2022</div>
-                <h4>Subscription plans introduced</h4>
-                <p>Launched FlexRide Monthly — the first car subscription service with unlimited vehicle swaps in Africa.</p>
+                <h4>Wash subscription plans introduced</h4>
+                <p>Launched SpotlessRide Monthly — the first unlimited car wash subscription service in South Africa.</p>
             </div>
             <div class="timeline-item">
                 <div class="timeline-year">2024</div>
-                <h4>EV fleet expansion</h4>
-                <p>Added 200 electric vehicles across our fleet. Committed to 50% EV penetration by 2027.</p>
+                <h4>Eco wash system rollout</h4>
+                <p>Installed water-recycling rigs at all 15 locations, cutting water usage by 70%. Committed to full sustainability by 2026.</p>
             </div>
         </div>
     </div>
 </section>
 
-<!-- FOOTER -->
 <footer class="site-footer">
     <div class="footer-topbar">
         <div class="footer-logo">Spotless<span>Ride</span></div>
@@ -385,9 +281,9 @@
     </div>
     <div class="footer-divider"></div>
     <div class="footer-cols">
-        <div class="footer-col"><h4>Our Services</h4><a href="#">Car Rental</a><a href="#">Truck Rental</a><a href="#">Airport Transfer</a><a href="#">Subscription Plans</a><a href="#">Spotless Ride App</a></div>
-        <div class="footer-col"><h4>For Business</h4><a href="#">Register My Business</a><a href="#">Corporate Rates</a><a href="#">Fleet Solutions</a><a href="#">Travel Agencies</a></div>
-        <div class="footer-col"><h4>Members</h4><a href="#">Spotless One Rewards</a><a href="#">Member Deals</a><a href="#">Referral Program</a><a href="#">Points &amp; Perks</a></div>
+        <div class="footer-col"><h4>Our Services</h4><a href="#">Express Wash</a><a href="#">Full Valet</a><a href="#">Interior Detailing</a><a href="#">Subscription Plans</a><a href="#">SpotlessShine App</a></div>
+        <div class="footer-col"><h4>For Business</h4><a href="#">Fleet Accounts</a><a href="#">Corporate Rates</a><a href="#">Dealership Packages</a><a href="#">Transport Companies</a></div>
+        <div class="footer-col"><h4>Members</h4><a href="#">Shine Rewards</a><a href="#">Member Deals</a><a href="#">Referral Program</a><a href="#">Points &amp; Perks</a></div>
         <div class="footer-col"><h4>About Us</h4><a href="#">Our Story</a><a href="#">News &amp; Blog</a><a href="#">Careers</a><a href="#">Press</a><a href="#">Investor Relations</a></div>
         <div class="footer-col"><h4>Help &amp; Support</h4><a href="#">Help Centre</a><a href="#">Contact Us</a><a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#">Cookie Settings</a></div>
     </div>
@@ -398,22 +294,17 @@
             <a href="#" class="f-store-btn"><svg viewBox="0 0 24 24" fill="none" width="20" height="20"><path d="M3 20.5v-17c0-.83 1-.83 1.5-.5l14 8.5-14 8.5c-.5.33-1.5.33-1.5-.5z" fill="#4CAF50"/><path d="M3 3.5l10 10L3 20.5V3.5z" fill="#81C784"/><path d="M17.5 11.5l-4.5 2-10-10 14.5 8z" fill="#FF7043"/><path d="M17.5 12.5L3 20.5l10-10 4.5 2z" fill="#FFCA28"/></svg><span><small>GET IT ON</small>Google Play</span></a>
         </div>
         <div class="footer-pay"><span>VISA</span><span>MC</span><span>AMEX</span><span>PayPal</span></div>
-        <p class="footer-copy">&copy; 2025 Spotless Ride. All rights reserved.</p>
+        <p class="footer-copy">&copy; 2025 SpotlessShine. All rights reserved.</p>
     </div>
 </footer>
 
 </body>
-
 <script>
-    function toggleNav() {
-        document.getElementById('navbar').classList.toggle('active');
-    }
+    function toggleNav() { document.getElementById('navbar').classList.toggle('active'); }
     window.addEventListener('click', function(e) {
         const navbar = document.getElementById('navbar');
         const menuIcon = document.querySelector('.menu-icon');
-        if (!navbar.contains(e.target) && !menuIcon.contains(e.target)) {
-            navbar.classList.remove('active');
-        }
+        if (!navbar.contains(e.target) && !menuIcon.contains(e.target)) navbar.classList.remove('active');
     });
 </script>
 </html>

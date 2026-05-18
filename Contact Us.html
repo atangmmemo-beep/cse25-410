@@ -5,7 +5,125 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Customer Service - SpotlessRide</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="customer-service.css">
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; font-family:Arial,sans-serif; }
+
+        header { background-color:black; color:white; padding:15px 20px; display:flex; justify-content:space-between; align-items:center; position:fixed; top:0;left:0; width:100%; z-index:1000; }
+        .header-left { display:flex; align-items:center; }
+        .menu-icon { font-size:30px; cursor:pointer; color:white; margin-right:10px; }
+
+        .navbar { position:fixed; top:60px; left:0; width:100%; height:calc(100vh - 60px); background-color:rgba(0,0,0,0.95); transition:transform 0.5s ease-in-out; transform:translateY(-100%); z-index:999; display:flex; flex-direction:column; align-items:flex-start; justify-content:flex-start; padding:20px; }
+        .navbar.active { transform:translateY(0); }
+        .navbar a { display:flex; align-items:center; padding:15px 20px; text-decoration:none; font-size:24px; color:white; width:100%; transition:background 0.3s ease, color 0.3s ease; border-bottom:1px solid rgba(255,255,255,0.2); }
+        .navbar a:hover { background:rgba(255,255,255,0.2); color:#b0c4de; }
+        .navbar a:last-child { border-bottom:none; }
+        .navbar a i { margin-right:10px; }
+
+        .page-hero { margin-top:60px; background:#111; padding:80px 40px; text-align:center; color:white; position:relative; overflow:hidden; }
+        .page-hero::before { content:''; position:absolute; top:0; left:50%; transform:translateX(-50%); width:700px; height:300px; background:radial-gradient(ellipse, rgba(232,76,14,0.15) 0%, transparent 65%); pointer-events:none; }
+        .page-hero-tag { font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:3px;color:#e84c0e;margin-bottom:14px;display:block; }
+        .page-hero h1 { font-size:clamp(32px,5vw,54px); font-weight:900; line-height:1.15; margin-bottom:16px; }
+        .page-hero p { font-size:16px; color:rgba(255,255,255,0.6); max-width:500px; margin:0 auto 32px; line-height:1.7; }
+        .hero-search { display:flex; max-width:480px; margin:0 auto; background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.15); border-radius:10px; overflow:hidden; }
+        .hero-search input { flex:1; background:none; border:none; outline:none; color:#fff; font-size:14px; padding:14px 18px; }
+        .hero-search input::placeholder { color:rgba(255,255,255,0.4); }
+        .hero-search button { background:#070707; border:none; color:#fff; padding:0 22px; cursor:pointer; font-weight:700; font-size:14px; transition:background 0.2s; }
+        .hero-search button:hover { background:#e84c0e; }
+
+        .channels-section { background:#fff; padding:70px 40px; }
+        .channels-inner { max-width:1100px; margin:0 auto; }
+        .section-label { font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:3px;color:#e84c0e;display:block;margin-bottom:12px; }
+        .section-heading { font-size:clamp(26px,3.5vw,38px); font-weight:900; color:#111; margin-bottom:8px; }
+        .section-sub { font-size:15px;color:#777;margin-bottom:48px;max-width:520px;line-height:1.7; }
+        .channels-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:24px; }
+        .channel-card { border:1px solid #eee; border-radius:14px; padding:32px 26px; text-align:center; transition:box-shadow 0.3s, transform 0.3s; cursor:pointer; }
+        .channel-card:hover { box-shadow:0 12px 36px rgba(0,0,0,0.09); transform:translateY(-5px); }
+        .channel-icon { width:64px; height:64px; border-radius:50%; background:rgba(232,76,14,0.1); display:flex; align-items:center; justify-content:center; margin:0 auto 18px; }
+        .channel-icon i { font-size:26px; color:#0a0a0a; }
+        .channel-card h3 { font-size:17px; font-weight:800; color:#111; margin-bottom:8px; }
+        .channel-card p { font-size:13px; color:#888; line-height:1.6; margin-bottom:16px; }
+        .channel-badge { font-size:12px; font-weight:700; color:#080808; }
+        .channel-btn { display:inline-block; background:#111; color:#fff; padding:11px 22px; border-radius:8px; text-decoration:none; font-size:13px; font-weight:700; transition:background 0.2s; margin-top:10px; }
+        .channel-btn:hover { background:#e84c0e; }
+
+        .form-section { background:#f7f7f7; padding:80px 40px; }
+        .form-inner { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1fr 1.5fr; gap:60px; align-items:start; }
+        .form-info h2 { font-size:clamp(24px,3vw,34px); font-weight:900; color:#111; margin-bottom:18px; }
+        .form-info p { font-size:14px; color:#666; line-height:1.7; margin-bottom:28px; }
+        .form-info-item { display:flex; align-items:flex-start; gap:14px; margin-bottom:22px; }
+        .fii-icon { width:44px; height:44px; background:#000; border-radius:10px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+        .fii-icon i { color:#fff; font-size:16px; }
+        .fii-text strong { font-size:14px; color:#111; display:block; margin-bottom:2px; }
+        .fii-text span { font-size:13px; color:#888; }
+
+        .contact-form { background:#fff; border-radius:16px; padding:38px 36px; box-shadow:0 4px 24px rgba(0,0,0,0.06); }
+        .form-row-grid { display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-bottom:18px; }
+        .form-field { display:flex; flex-direction:column; margin-bottom:18px; }
+        .form-field label { font-size:13px; font-weight:700; color:#333; margin-bottom:6px; }
+        .form-field input,.form-field select,.form-field textarea { padding:13px 15px; border:1px solid #ddd; border-radius:10px; font-size:14px; font-family:Arial,sans-serif; outline:none; transition:border-color 0.2s; background:#fafafa; }
+        .form-field input:focus,.form-field select:focus,.form-field textarea:focus { border-color:#0c0c0c; background:#fff; }
+        .form-field textarea { resize:vertical; min-height:120px; }
+        .form-submit { width:100%; background:#030303; color:#fff; border:none; padding:16px; border-radius:10px; font-size:15px; font-weight:700; cursor:pointer; transition:background 0.2s; }
+        .form-submit:hover { background:#e84c0e; }
+        .form-note { font-size:12px; color:#aaa; text-align:center; margin-top:12px; }
+
+        .help-section { background:#fff; padding:70px 40px; }
+        .help-inner { max-width:1100px; margin:0 auto; }
+        .help-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:18px; }
+        .help-tile { border:1px solid #eee; border-radius:12px; padding:24px 20px; display:flex; align-items:center; gap:14px; text-decoration:none; color:#111; transition:border-color 0.2s, box-shadow 0.2s; }
+        .help-tile:hover { border-color:#0f0f0f; box-shadow:0 6px 20px rgba(232,76,14,0.1); }
+        .help-tile-icon { font-size:22px; color:#161616; flex-shrink:0; }
+        .help-tile span { font-size:14px; font-weight:700; color:#111; }
+
+        .faq2-section { background:#000; padding:70px 20px; }
+        .faq2-inner { max-width:860px; margin:0 auto; }
+        .faq2-heading { font-size:28px; font-weight:900; color:#fff; margin:0 0 22px; }
+        .faq2-list { display:flex; flex-direction:column; gap:3px; }
+        .faq2-item { background:#2d2d2d; overflow:hidden; transition:background 0.2s; }
+        .faq2-item:hover { background:#3a3a3a; }
+        .faq2-q { width:100%;background:none;border:none;display:flex;align-items:center;justify-content:space-between;padding:22px 26px;font-size:18px;font-weight:500;color:#fff;cursor:pointer;font-family:Arial,sans-serif;text-align:left;gap:20px;transition:color 0.2s; }
+        .faq2-q:hover { color:#e84c0e; }
+        .faq2-icon { font-size:28px;font-weight:300;color:#fff;line-height:1;flex-shrink:0;transition:transform 0.35s ease, color 0.2s;display:inline-block; }
+        .faq2-q.open .faq2-icon { transform:rotate(45deg); color:#e84c0e; }
+        .faq2-a { max-height:0; overflow:hidden; transition:max-height 0.4s ease, padding 0.3s ease; padding:0 26px; }
+        .faq2-a.open { max-height:300px; padding:0 26px 22px; }
+        .faq2-a p { font-size:16px;color:rgba(255,255,255,0.75);line-height:1.7;margin:0;border-top:1px solid rgba(255,255,255,0.08);padding-top:18px; }
+
+        .site-footer { background:#111; color:rgba(255,255,255,0.65); padding:50px 40px 30px; font-size:14px; }
+        .footer-topbar { display:flex; align-items:center; justify-content:space-between; margin-bottom:32px; }
+        .footer-logo { font-size:26px; font-weight:900; color:#fff; letter-spacing:-0.5px; }
+        .footer-logo span { color:#e84c0e; }
+        .footer-socials { display:flex; gap:14px; }
+        .footer-socials a { width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.7);transition:0.2s;text-decoration:none; }
+        .footer-socials a svg { width:18px;height:18px; }
+        .footer-socials a:hover { background:#e84c0e;border-color:#e84c0e;color:#fff; }
+        .footer-divider { border:none;border-top:1px solid rgba(255,255,255,0.08);margin:0 0 36px; }
+        .footer-cols { display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:32px;margin-bottom:36px; }
+        .footer-col h4 { font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:rgba(255,255,255,0.4);margin:0 0 18px; }
+        .footer-col a { display:block;color:rgba(255,255,255,0.75);text-decoration:none;font-size:14px;font-weight:600;margin-bottom:13px;transition:color 0.2s; }
+        .footer-col a:hover { color:#e84c0e; }
+        .footer-bottom { display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:18px;padding-top:28px;border-top:1px solid rgba(255,255,255,0.08); }
+        .footer-store-btns { display:flex;gap:12px;flex-wrap:wrap; }
+        .f-store-btn { display:flex;align-items:center;gap:9px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.14);border-radius:8px;padding:9px 16px;color:#fff;text-decoration:none;transition:0.2s;min-width:140px; }
+        .f-store-btn:hover { background:#e84c0e;border-color:#e84c0e; }
+        .f-store-btn span { display:flex;flex-direction:column;font-size:14px;font-weight:700;line-height:1.2;color:#fff; }
+        .f-store-btn small { font-size:10px;font-weight:400;opacity:0.7; }
+        .footer-pay { display:flex;gap:8px;flex-wrap:wrap;align-items:center; }
+        .footer-pay span { background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-radius:5px;padding:5px 12px;font-size:11px;font-weight:700;color:rgba(255,255,255,0.6);letter-spacing:0.5px; }
+        .footer-copy { font-size:12px;color:rgba(255,255,255,0.3);margin:0; }
+
+        .toast { position:fixed; bottom:30px; right:30px; background:#111; color:#fff; padding:16px 24px; border-radius:10px; font-size:14px; font-weight:700; border-left:4px solid #e84c0e; opacity:0; transform:translateY(20px); transition:opacity 0.4s, transform 0.4s; z-index:9999; pointer-events:none; }
+        .toast.show { opacity:1; transform:translateY(0); }
+
+        @media (max-width:768px) {
+            .form-inner { grid-template-columns:1fr; gap:32px; }
+            .form-row-grid { grid-template-columns:1fr; }
+            .channels-section,.form-section,.help-section { padding:50px 20px; }
+            .page-hero { padding:60px 20px; }
+            .footer-cols { grid-template-columns:1fr 1fr; }
+            .footer-topbar,.footer-bottom { flex-direction:column; align-items:flex-start; gap:18px; }
+        }
+    </style>
 </head>
 
 <header>
@@ -19,33 +137,30 @@
 
 <nav id="navbar" class="navbar">
     <a href="index.html"><i class="fas fa-home"></i> Home</a>
-    <a href="Vehicles.HTML"><i class="fas fa-car"></i> Gallery</a>
-    <a href="About-Us.html"><i class="fas fa-phone"></i> About us</a>
-    <a href="services.html"><i class="fas fa-cogs"></i> Services</a>
+    <a href="Vehicles.HTML"><i class="fas fa-images"></i> Gallery</a>
+    <a href="About-Us.html"><i class="fas fa-info-circle"></i> About Us</a>
+    <a href="services.html"><i class="fas fa-soap"></i> Services</a>
     <a href="Contact Us.html"><i class="fas fa-envelope"></i> Contact</a>
 </nav>
 
 <body>
 
-<!-- HERO -->
 <section class="page-hero">
     <span class="page-hero-tag">We're Here to Help</span>
     <h1>How can we help<br>you today?</h1>
-    <p>Search our help centre, browse popular topics, or get in touch with our support team directly.</p>
+    <p>Search our help centre, browse popular topics, or get in touch with our team directly.</p>
     <div class="hero-search">
         <input type="text" placeholder="Search for help... e.g. 'cancel booking'" id="helpSearch">
         <button onclick="handleSearch()"><i class="fas fa-search"></i></button>
     </div>
 </section>
 
-<!-- CONTACT CHANNELS -->
 <section class="channels-section">
     <div class="channels-inner">
         <span class="section-label">Get In Touch</span>
         <h2 class="section-heading">Choose how to reach us</h2>
         <p class="section-sub">Our team is available across all channels — pick what works best for you.</p>
         <div class="channels-grid">
-
             <div class="channel-card">
                 <div class="channel-icon"><i class="fas fa-comments"></i></div>
                 <h3>Live Chat</h3>
@@ -53,23 +168,20 @@
                 <div class="channel-badge"><i class="fas fa-circle" style="font-size:9px;color:#22c55e;"></i> Online Now</div>
                 <a href="#" class="channel-btn">Start Chat</a>
             </div>
-
             <div class="channel-card">
                 <div class="channel-icon"><i class="fas fa-phone-alt"></i></div>
                 <h3>Call Us</h3>
-                <p>Speak directly to our customer care team. Available 7 days a week, 06:00 – 22:00.</p>
+                <p>Speak directly to our customer care team. Available 7 days a week, 07:00 – 19:00.</p>
                 <div class="channel-badge">+27 (0) 11 000 1234</div>
                 <a href="tel:+27110001234" class="channel-btn">Call Now</a>
             </div>
-
             <div class="channel-card">
                 <div class="channel-icon"><i class="fas fa-envelope"></i></div>
                 <h3>Email Support</h3>
-                <p>Send us a detailed message and we'll respond within 4 hours during business hours.</p>
-                <div class="channel-badge">support@spotlessRide.co.za</div>
+                <p>Send us a message and we'll respond within 4 hours during business hours.</p>
+                <div class="channel-badge">hello@spotlessshine.co.za</div>
                 <a href="#contactForm" class="channel-btn">Send Email</a>
             </div>
-
             <div class="channel-card">
                 <div class="channel-icon"><i class="fab fa-whatsapp"></i></div>
                 <h3>WhatsApp</h3>
@@ -77,12 +189,10 @@
                 <div class="channel-badge">+27 (0) 60 000 5678</div>
                 <a href="#" class="channel-btn">WhatsApp Us</a>
             </div>
-
         </div>
     </div>
 </section>
 
-<!-- CONTACT FORM + INFO -->
 <section class="form-section" id="contactForm">
     <div class="form-inner">
         <div class="form-info">
@@ -99,8 +209,8 @@
             <div class="form-info-item">
                 <div class="fii-icon"><i class="fas fa-clock"></i></div>
                 <div class="fii-text">
-                    <strong>Support Hours</strong>
-                    <span>Mon – Sun: 06:00 – 22:00 SAST</span>
+                    <strong>Wash Bay Hours</strong>
+                    <span>Mon – Sun: 07:00 – 19:00 SAST</span>
                 </div>
             </div>
             <div class="form-info-item">
@@ -114,116 +224,98 @@
                 <div class="fii-icon"><i class="fas fa-envelope"></i></div>
                 <div class="fii-text">
                     <strong>Email</strong>
-                    <span>support@spotlessRide.co.za</span>
+                    <span>hello@spotlessride.co.za</span>
                 </div>
             </div>
         </div>
 
         <div class="contact-form">
             <div class="form-row-grid">
-                <div class="form-field">
-                    <label>First Name</label>
-                    <input type="text" placeholder="e.g. Sipho" id="fname">
-                </div>
-                <div class="form-field">
-                    <label>Last Name</label>
-                    <input type="text" placeholder="e.g. Dlamini" id="lname">
-                </div>
+                <div class="form-field"><label>First Name</label><input type="text" placeholder="e.g. firstname" id="fname"></div>
+                <div class="form-field"><label>Last Name</label><input type="text" placeholder="e.g. lastname" id="lname"></div>
             </div>
             <div class="form-row-grid">
-                <div class="form-field">
-                    <label>Email Address</label>
-                    <input type="email" placeholder="your@email.com" id="email">
-                </div>
-                <div class="form-field">
-                    <label>Phone Number</label>
-                    <input type="tel" placeholder="+27 XX XXX XXXX" id="phone">
-                </div>
+                <div class="form-field"><label>Email Address</label><input type="email" placeholder="your@email.com" id="email"></div>
+                <div class="form-field"><label>Phone Number</label><input type="tel" placeholder="+27 XX XXX XXXX" id="phone"></div>
             </div>
             <div class="form-field">
                 <label>Booking Reference (optional)</label>
-                <input type="text" placeholder="e.g. FLX-2025-00123" id="bookingRef">
+                <input type="text" placeholder="e.g. SS-2025-00123" id="bookingRef">
             </div>
             <div class="form-field">
                 <label>Topic</label>
                 <select id="topic">
                     <option value="">— Select a topic —</option>
-                    <option>Booking / Reservation</option>
-                    <option>Cancellation or Modification</option>
-                    <option>Billing & Payments</option>
-                    <option>Vehicle Issue</option>
-                    <option>Insurance & Coverage</option>
+                    <option>Booking / Appointment</option>
+                    <option>Cancellation or Rescheduling</option>
+                    <option>Billing &amp; Payments</option>
+                    <option>Wash Quality Issue</option>
+                    <option>Damage Claim</option>
                     <option>Loyalty Programme</option>
                     <option>Other</option>
                 </select>
             </div>
-            <div class="form-field">
-                <label>Message</label>
-                <textarea placeholder="Tell us what's on your mind..." id="message"></textarea>
-            </div>
+            <div class="form-field"><label>Message</label><textarea placeholder="Tell us what's on your mind..." id="message"></textarea></div>
             <button class="form-submit" onclick="submitForm()">Send Message &rarr;</button>
             <p class="form-note">We typically respond within 4 hours during business hours.</p>
         </div>
     </div>
 </section>
 
-<!-- HELP TOPICS -->
 <section class="help-section">
     <div class="help-inner">
         <span class="section-label">Browse Topics</span>
         <h2 class="section-heading">Popular help articles</h2>
-        <p class="section-sub">Find quick answers to the most common questions.</p>
+        <p class="section-sub">Find quick answers to the most common questions about our wash services.</p>
         <div class="help-grid">
-            <a href="#" class="help-tile"><i class="fas fa-calendar-alt help-tile-icon"></i><span>How to modify a booking</span></a>
+            <a href="#" class="help-tile"><i class="fas fa-calendar-alt help-tile-icon"></i><span>How to book an appointment</span></a>
             <a href="#" class="help-tile"><i class="fas fa-times-circle help-tile-icon"></i><span>Cancellation policy</span></a>
-            <a href="#" class="help-tile"><i class="fas fa-id-card help-tile-icon"></i><span>Required documents</span></a>
-            <a href="#" class="help-tile"><i class="fas fa-gas-pump help-tile-icon"></i><span>Fuel policy explained</span></a>
-            <a href="#" class="help-tile"><i class="fas fa-shield-alt help-tile-icon"></i><span>Insurance options</span></a>
-            <a href="#" class="help-tile"><i class="fas fa-map-pin help-tile-icon"></i><span>Pickup & return locations</span></a>
-            <a href="#" class="help-tile"><i class="fas fa-star help-tile-icon"></i><span>Loyalty points & rewards</span></a>
-            <a href="#" class="help-tile"><i class="fas fa-mobile-alt help-tile-icon"></i><span>Using the FlexRide app</span></a>
-            <a href="#" class="help-tile"><i class="fas fa-user-plus help-tile-icon"></i><span>Adding an extra driver</span></a>
-            <a href="#" class="help-tile"><i class="fas fa-receipt help-tile-icon"></i><span>Billing & invoices</span></a>
-            <a href="#" class="help-tile"><i class="fas fa-baby-carriage help-tile-icon"></i><span>Child seat add-ons</span></a>
-            <a href="#" class="help-tile"><i class="fas fa-globe help-tile-icon"></i><span>Cross-border travel</span></a>
+            <a href="#" class="help-tile"><i class="fas fa-car help-tile-icon"></i><span>Which wash is right for me?</span></a>
+            <a href="#" class="help-tile"><i class="fas fa-tint help-tile-icon"></i><span>Products we use</span></a>
+            <a href="#" class="help-tile"><i class="fas fa-shield-alt help-tile-icon"></i><span>Our damage guarantee</span></a>
+            <a href="#" class="help-tile"><i class="fas fa-map-pin help-tile-icon"></i><span>Find a wash location</span></a>
+            <a href="#" class="help-tile"><i class="fas fa-star help-tile-icon"></i><span>Loyalty points &amp; rewards</span></a>
+            <a href="#" class="help-tile"><i class="fas fa-mobile-alt help-tile-icon"></i><span>Using the SpotlessShine app</span></a>
+            <a href="#" class="help-tile"><i class="fas fa-user-plus help-tile-icon"></i><span>Corporate &amp; fleet accounts</span></a>
+            <a href="#" class="help-tile"><i class="fas fa-receipt help-tile-icon"></i><span>Billing &amp; invoices</span></a>
+            <a href="#" class="help-tile"><i class="fas fa-spray-can help-tile-icon"></i><span>Interior detailing add-ons</span></a>
+            <a href="#" class="help-tile"><i class="fas fa-leaf help-tile-icon"></i><span>Our eco wash process</span></a>
         </div>
     </div>
 </section>
 
-<!-- FAQ -->
 <section class="faq2-section">
     <div class="faq2-inner">
         <h2 class="faq2-heading">Frequently Asked Questions</h2>
         <div class="faq2-list">
             <div class="faq2-item">
-                <button class="faq2-q" onclick="toggleFaq2(this)">What documents do I need to rent a car?<span class="faq2-icon">+</span></button>
-                <div class="faq2-a"><p>You'll need a valid driver's licence, a credit or debit card in your name, and a government-issued ID. International renters should also bring their passport and an International Driving Permit if applicable.</p></div>
+                <button class="faq2-q" onclick="toggleFaq2(this)">Do I need to book in advance?<span class="faq2-icon">+</span></button>
+                <div class="faq2-a"><p>Walk-ins are welcome, but booking in advance via our app or website guarantees your preferred time slot and can save you waiting. During peak times (weekends and public holidays) we strongly recommend booking ahead.</p></div>
             </div>
             <div class="faq2-item">
-                <button class="faq2-q" onclick="toggleFaq2(this)">How do I cancel or modify my booking?<span class="faq2-icon">+</span></button>
-                <div class="faq2-a"><p>Log in to your account, navigate to "My Bookings", and select the reservation you'd like to change. Cancellations and modifications are free up to 48 hours before pickup. Changes within 48 hours may incur a small fee.</p></div>
+                <button class="faq2-q" onclick="toggleFaq2(this)">How long does a full valet take?<span class="faq2-icon">+</span></button>
+                <div class="faq2-a"><p>An express exterior wash takes 15–25 minutes. A full valet including interior cleaning takes 1.5–3 hours depending on the vehicle size and condition. Premium detailing packages may take a full day — we'll give you an estimated time at drop-off.</p></div>
             </div>
             <div class="faq2-item">
-                <button class="faq2-q" onclick="toggleFaq2(this)">Is fuel included in the rental price?<span class="faq2-icon">+</span></button>
-                <div class="faq2-a"><p>Vehicles are provided with a full tank. We ask that you return the car with a full tank. If the vehicle is returned with less fuel, a refuelling fee will be charged based on the amount needed plus a service charge.</p></div>
+                <button class="faq2-q" onclick="toggleFaq2(this)">What if I'm not happy with the wash?<span class="faq2-icon">+</span></button>
+                <div class="faq2-a"><p>We have a 100% satisfaction guarantee. If you're not happy with any aspect of your wash, let our team know before you leave and we'll redo the affected areas immediately at no charge. Your satisfaction is non-negotiable.</p></div>
             </div>
             <div class="faq2-item">
-                <button class="faq2-q" onclick="toggleFaq2(this)">What happens if I return the car late?<span class="faq2-icon">+</span></button>
-                <div class="faq2-a"><p>A grace period of 30 minutes applies. Returns between 30 minutes and 3 hours late are charged a half-day rate. Returns more than 3 hours late are charged a full-day rate. We recommend extending your booking in advance via the app to avoid this.</p></div>
+                <button class="faq2-q" onclick="toggleFaq2(this)">Are your products safe for my paint?<span class="faq2-icon">+</span></button>
+                <div class="faq2-a"><p>Absolutely. We use only pH-balanced, paint-safe cleaning products from trusted brands. Our detailers are trained to handle all paint types including ceramic coatings, vinyl wraps, and matte finishes without causing damage.</p></div>
             </div>
             <div class="faq2-item">
-                <button class="faq2-q" onclick="toggleFaq2(this)">Can I take the car across the border?<span class="faq2-icon">+</span></button>
-                <div class="faq2-a"><p>Yes — cross-border travel is available to selected neighbouring countries including Namibia, Botswana, Lesotho, Eswatini, and Mozambique. A cross-border letter and additional fee apply. Please inform us at the time of booking.</p></div>
+                <button class="faq2-q" onclick="toggleFaq2(this)">Can I stay with my car during the wash?<span class="faq2-icon">+</span></button>
+                <div class="faq2-a"><p>Yes! All our locations have comfortable waiting areas with complimentary Wi-Fi, coffee, and seating. For longer services you're also welcome to drop off and collect later — just let us know at check-in.</p></div>
             </div>
             <div class="faq2-item">
-                <button class="faq2-q" onclick="toggleFaq2(this)">How does the Spotless One loyalty programme work?<span class="faq2-icon">+</span></button>
-                <div class="faq2-a"><p>Every rand you spend earns you Spotless Points. Points can be redeemed for discounts, free upgrades, or cashback. Join for free during signup and start earning from your very first rental.</p></div>
+                <button class="faq2-q" onclick="toggleFaq2(this)">How does the Shine Rewards loyalty programme work?<span class="faq2-icon">+</span></button>
+                <div class="faq2-a"><p>Every wash earns you Shine Points. Points can be redeemed for discounts, free upgrades, or full complimentary washes. Join for free during signup and start earning from your very first visit.</p></div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- FOOTER -->
 <footer class="site-footer">
     <div class="footer-topbar">
         <div class="footer-logo">Spotless<span>Ride</span></div>
@@ -236,9 +328,9 @@
     </div>
     <div class="footer-divider"></div>
     <div class="footer-cols">
-        <div class="footer-col"><h4>Our Services</h4><a href="#">Car Rental</a><a href="#">Truck Rental</a><a href="#">Airport Transfer</a><a href="#">Subscription Plans</a><a href="#">Spotless Ride App</a></div>
-        <div class="footer-col"><h4>For Business</h4><a href="#">Register My Business</a><a href="#">Corporate Rates</a><a href="#">Fleet Solutions</a><a href="#">Travel Agencies</a></div>
-        <div class="footer-col"><h4>Members</h4><a href="#">Spotless One Rewards</a><a href="#">Member Deals</a><a href="#">Referral Program</a><a href="#">Points &amp; Perks</a></div>
+        <div class="footer-col"><h4>Our Services</h4><a href="#">Express Wash</a><a href="#">Full Valet</a><a href="#">Interior Detailing</a><a href="#">Subscription Plans</a><a href="#">SpotlessShine App</a></div>
+        <div class="footer-col"><h4>For Business</h4><a href="#">Fleet Accounts</a><a href="#">Corporate Rates</a><a href="#">Dealership Packages</a><a href="#">Transport Companies</a></div>
+        <div class="footer-col"><h4>Members</h4><a href="#">Shine Rewards</a><a href="#">Member Deals</a><a href="#">Referral Program</a><a href="#">Points &amp; Perks</a></div>
         <div class="footer-col"><h4>About Us</h4><a href="#">Our Story</a><a href="#">News &amp; Blog</a><a href="#">Careers</a><a href="#">Press</a><a href="#">Investor Relations</a></div>
         <div class="footer-col"><h4>Help &amp; Support</h4><a href="#">Help Centre</a><a href="#">Contact Us</a><a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#">Cookie Settings</a></div>
     </div>
@@ -249,25 +341,19 @@
             <a href="#" class="f-store-btn"><svg viewBox="0 0 24 24" fill="none" width="20" height="20"><path d="M3 20.5v-17c0-.83 1-.83 1.5-.5l14 8.5-14 8.5c-.5.33-1.5.33-1.5-.5z" fill="#4CAF50"/><path d="M3 3.5l10 10L3 20.5V3.5z" fill="#81C784"/><path d="M17.5 11.5l-4.5 2-10-10 14.5 8z" fill="#FF7043"/><path d="M17.5 12.5L3 20.5l10-10 4.5 2z" fill="#FFCA28"/></svg><span><small>GET IT ON</small>Google Play</span></a>
         </div>
         <div class="footer-pay"><span>VISA</span><span>MC</span><span>AMEX</span><span>PayPal</span></div>
-        <p class="footer-copy">&copy; 2025 Spotless Ride. All rights reserved.</p>
+        <p class="footer-copy">&copy; 2025 SpotlessShine. All rights reserved.</p>
     </div>
 </footer>
 
-<!-- Toast -->
 <div class="toast" id="toast">✅ Message sent! We'll be in touch soon.</div>
 
 </body>
-
 <script>
-    function toggleNav() {
-        document.getElementById('navbar').classList.toggle('active');
-    }
+    function toggleNav() { document.getElementById('navbar').classList.toggle('active'); }
     window.addEventListener('click', function(e) {
         const navbar = document.getElementById('navbar');
         const menuIcon = document.querySelector('.menu-icon');
-        if (!navbar.contains(e.target) && !menuIcon.contains(e.target)) {
-            navbar.classList.remove('active');
-        }
+        if (!navbar.contains(e.target) && !menuIcon.contains(e.target)) navbar.classList.remove('active');
     });
 
     function toggleFaq2(btn) {
@@ -275,42 +361,26 @@
         const isOpen = btn.classList.contains('open');
         document.querySelectorAll('.faq2-q').forEach(q => q.classList.remove('open'));
         document.querySelectorAll('.faq2-a').forEach(a => a.classList.remove('open'));
-        if (!isOpen) {
-            btn.classList.add('open');
-            answer.classList.add('open');
-            setTimeout(() => btn.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 100);
-        }
+        if (!isOpen) { btn.classList.add('open'); answer.classList.add('open'); setTimeout(() => btn.scrollIntoView({ behavior:'smooth', block:'nearest' }), 100); }
     }
 
     function submitForm() {
         const fname = document.getElementById('fname').value.trim();
         const email = document.getElementById('email').value.trim();
         const message = document.getElementById('message').value.trim();
-        if (!fname || !email || !message) {
-            alert('Please fill in your name, email, and message.');
-            return;
-        }
+        if (!fname || !email || !message) { alert('Please fill in your name, email, and message.'); return; }
         const toast = document.getElementById('toast');
         toast.classList.add('show');
         setTimeout(() => toast.classList.remove('show'), 4000);
-        document.getElementById('fname').value = '';
-        document.getElementById('lname').value = '';
-        document.getElementById('email').value = '';
-        document.getElementById('phone').value = '';
-        document.getElementById('bookingRef').value = '';
+        ['fname','lname','email','phone','bookingRef','message'].forEach(id => document.getElementById(id).value = '');
         document.getElementById('topic').value = '';
-        document.getElementById('message').value = '';
     }
 
     function handleSearch() {
         const q = document.getElementById('helpSearch').value.trim();
-        if (q) {
-            document.querySelector('.help-section').scrollIntoView({ behavior: 'smooth' });
-        }
+        if (q) document.querySelector('.help-section').scrollIntoView({ behavior:'smooth' });
     }
 
-    document.getElementById('helpSearch').addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') handleSearch();
-    });
+    document.getElementById('helpSearch').addEventListener('keypress', function(e) { if (e.key === 'Enter') handleSearch(); });
 </script>
 </html>
