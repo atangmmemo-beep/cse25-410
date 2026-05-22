@@ -38,13 +38,8 @@
         <!-- Booking Wrapper -->
         <div class="booking-wrapper">
 
-            <!-- Tabs -->
-            <div class="booking-tabs">
-                <button class="tab active">Car Wash</button>
-                <button class="tab">Full Valet</button>
-                <button class="tab">Subscription</button>
-                <button class="tab">Fleet Wash</button>
-            </div>
+        
+            
 
             <!-- Booking Form -->
             <form id="bookingForm" class="booking-form">
@@ -484,18 +479,6 @@
 
 </footer>
 
-    <script>
-const tabs = document.querySelectorAll('.tab');
-
-tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-
-        tabs.forEach(t => t.classList.remove('active'));
-
-        tab.classList.add('active');
-    });
-});
-</script>
 
 </body>
 </html>
