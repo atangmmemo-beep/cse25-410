@@ -478,7 +478,16 @@
     </div>
 
 </footer>
+    <script>
+document.getElementById("bookingForm").addEventListener("submit", function(event) {
 
+    event.preventDefault();
+
+    alert("Booking submitted successfully!");
+
+    this.reset();
+});
+</script>
 
 </body>
 </html>
