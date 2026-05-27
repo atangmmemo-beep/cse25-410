@@ -5,125 +5,120 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us - SpotlessRide</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+        /* Only custom overrides that Bootstrap can't cover */
+        body { font-family: Arial, sans-serif; }
 
-        header { background-color:black; color:white; padding:15px 20px; display:flex; justify-content:space-between; align-items:center; position:fixed; top:0;left:0; width:100%; z-index:1000; }
-        .header-left { display:flex; align-items:center; }
-        .menu-icon { font-size:30px; cursor:pointer; color:white; margin-right:10px; }
-        .header-right { margin-left:auto; }
-        .auth-link { font-size:13px; color:white; text-decoration:none; padding:10px; border:1px solid white; border-radius:2px; }
+        /* Header */
+        .site-header { background-color: black; padding: 15px 20px; position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; }
+        .menu-icon { font-size: 30px; cursor: pointer; color: white; margin-right: 10px; }
+        .auth-link { font-size: 13px; color: white; text-decoration: none; padding: 10px; border: 1px solid white; border-radius: 2px; }
 
-        .navbar { position:fixed; top:60px; left:0; width:100%; height:calc(100vh - 60px); background-color:rgba(0,0,0,0.95); transition:transform 0.5s ease-in-out; transform:translateY(-100%); z-index:999; display:flex; flex-direction:column; align-items:flex-start; justify-content:flex-start; padding:20px; }
-        .navbar.active { transform:translateY(0); }
-        .navbar a { display:flex; align-items:center; padding:15px 20px; text-decoration:none; font-size:24px; color:white; width:100%; transition:background 0.3s ease, color 0.3s ease; border-bottom:1px solid rgba(255,255,255,0.2); }
-        .navbar a:hover { background:rgba(255,255,255,0.2); color:#b0c4de; }
-        .navbar a:last-child { border-bottom:none; }
-        .navbar a i { margin-right:10px; }
+        /* Navbar overlay */
+        .navbar-overlay { position: fixed; top: 60px; left: 0; width: 100%; height: calc(100vh - 60px); background-color: rgba(0,0,0,0.95); transition: transform 0.5s ease-in-out; transform: translateY(-100%); z-index: 999; display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-start; padding: 20px; }
+        .navbar-overlay.active { transform: translateY(0); }
+        .navbar-overlay a { display: flex; align-items: center; padding: 15px 20px; text-decoration: none; font-size: 24px; color: white; width: 100%; transition: background 0.3s ease, color 0.3s ease; border-bottom: 1px solid rgba(255,255,255,0.2); }
+        .navbar-overlay a:hover { background: rgba(255,255,255,0.2); color: #b0c4de; }
+        .navbar-overlay a:last-child { border-bottom: none; }
+        .navbar-overlay a i { margin-right: 10px; }
 
-        .page-hero { margin-top:60px; background:#0a0a0a; padding:100px 40px 80px; text-align:center; color:white; position:relative; overflow:hidden; }
-        .page-hero::after { content:''; position:absolute; bottom:-80px; left:50%; transform:translateX(-50%); width:600px; height:200px; background:radial-gradient(ellipse, rgba(232,76,14,0.18) 0%, transparent 70%); pointer-events:none; }
-        .page-hero-tag { font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:3px;color:#e84c0e;margin-bottom:14px;display:block; }
-        .page-hero h1 { font-size:clamp(36px,5.5vw,62px); font-weight:900; line-height:1.1; margin-bottom:20px; }
-        .page-hero h1 em { color:#e84c0e; font-style:normal; }
-        .page-hero p { font-size:16px; color:rgba(255,255,255,0.6); max-width:520px; margin:0 auto; line-height:1.7; }
+        /* Page Hero */
+        .page-hero { margin-top: 60px; background: #0a0a0a; padding: 100px 40px 80px; text-align: center; color: white; position: relative; overflow: hidden; }
+        .page-hero::after { content: ''; position: absolute; bottom: -80px; left: 50%; transform: translateX(-50%); width: 600px; height: 200px; background: radial-gradient(ellipse, rgba(232,76,14,0.18) 0%, transparent 70%); pointer-events: none; }
+        .page-hero-tag { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 3px; color: #e84c0e; margin-bottom: 14px; display: block; }
+        .page-hero h1 { font-size: clamp(36px, 5.5vw, 62px); font-weight: 900; line-height: 1.1; margin-bottom: 20px; }
+        .page-hero h1 em { color: #e84c0e; font-style: normal; }
+        .page-hero p { font-size: 16px; color: rgba(255,255,255,0.6); max-width: 520px; margin: 0 auto; line-height: 1.7; }
 
-        .stats-strip { background:#e84c0e; padding:36px 40px; }
-        .stats-inner { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit, minmax(180px,1fr)); gap:20px; text-align:center; }
-        .stat-num { font-size:38px; font-weight:900; color:#fff; line-height:1; }
-        .stat-label { font-size:13px; color:rgba(255,255,255,0.8); margin-top:6px; font-weight:600; text-transform:uppercase; letter-spacing:1px; }
+        /* Stats Strip */
+        .stats-strip { background: #e84c0e; padding: 36px 40px; }
+        .stat-num { font-size: 38px; font-weight: 900; color: #fff; line-height: 1; }
+        .stat-label { font-size: 13px; color: rgba(255,255,255,0.8); margin-top: 6px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
 
-        .story-section { background:#fff; padding:90px 40px; }
-        .story-inner { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:70px; align-items:center; }
-        .story-text .section-label { font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:3px;color:#e84c0e;display:block;margin-bottom:14px; }
-        .story-text h2 { font-size:clamp(28px,3.5vw,40px); font-weight:900; color:#111; margin-bottom:22px; line-height:1.2; }
-        .story-text p { font-size:15px; color:#666; line-height:1.75; margin-bottom:18px; }
-        .story-img-side { position:relative; }
-        .story-img-box { border-radius:16px; overflow:hidden; height:440px; background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%); display:flex; align-items:center; justify-content:center; }
-        .story-img-box img { width:100%; height:100%; object-fit:cover; display:block; }
-        .story-badge { position:absolute; bottom:-20px; right:-20px; background:#e84c0e; color:#fff; padding:22px 28px; border-radius:14px; text-align:center; box-shadow:0 8px 28px rgba(232,76,14,0.35); }
-        .story-badge .b-num { font-size:34px; font-weight:900; }
-        .story-badge .b-label { font-size:12px; opacity:0.85; margin-top:4px; }
+        /* Section labels */
+        .section-label { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 3px; color: #e84c0e; display: block; margin-bottom: 12px; }
 
-        .values-section { background:#f7f7f7; padding:80px 40px; }
-        .values-inner { max-width:1100px; margin:0 auto; }
-        .section-label { font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:3px;color:#e84c0e;display:block;margin-bottom:12px; }
-        .section-heading { font-size:clamp(26px,3.5vw,38px); font-weight:900; color:#111; margin-bottom:8px; }
-        .section-sub { font-size:15px;color:#777;margin-bottom:48px;max-width:520px;line-height:1.7; }
-        .values-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:24px; }
-        .value-card { background:#fff; border-radius:14px; padding:34px 28px; border-left:4px solid #e84c0e; box-shadow:0 2px 16px rgba(0,0,0,0.05); transition:transform 0.3s; }
-        .value-card:hover { transform:translateY(-5px); }
-        .value-icon { font-size:28px; color:#e84c0e; margin-bottom:16px; }
-        .value-card h3 { font-size:19px; font-weight:800; color:#111; margin-bottom:10px; }
-        .value-card p { font-size:14px; color:#666; line-height:1.65; }
+        /* Story Section */
+        .story-section { background: #fff; padding: 90px 40px; }
+        .story-text h2 { font-size: clamp(28px, 3.5vw, 40px); font-weight: 900; color: #111; margin-bottom: 22px; line-height: 1.2; }
+        .story-text p { font-size: 15px; color: #666; line-height: 1.75; margin-bottom: 18px; }
+        .story-img-box { border-radius: 16px; overflow: hidden; height: 440px; background: linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%); display: flex; align-items: center; justify-content: center; }
+        .story-img-box img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .story-img-side { position: relative; }
+        .story-badge { position: absolute; bottom: -20px; right: -20px; background: #e84c0e; color: #fff; padding: 22px 28px; border-radius: 14px; text-align: center; box-shadow: 0 8px 28px rgba(232,76,14,0.35); }
+        .story-badge .b-num { font-size: 34px; font-weight: 900; }
+        .story-badge .b-label { font-size: 12px; opacity: 0.85; margin-top: 4px; }
 
-        .team-section { background:#fff; padding:80px 40px; }
-        .team-inner { max-width:1100px; margin:0 auto; }
-        .team-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:28px; }
-        .team-card { text-align:center; }
-        .team-avatar { width:100px; height:100px; border-radius:50%; overflow:hidden; margin:0 auto 18px; border:3px solid #e84c0e; }
-        .team-avatar img { width:100%; height:100%; object-fit:cover; display:block; }
-        .team-card h4 { font-size:17px; font-weight:800; color:#111; margin-bottom:4px; }
-        .team-card .role { font-size:13px; color:#e84c0e; font-weight:600; margin-bottom:8px; }
-        .team-card p { font-size:13px; color:#777; line-height:1.6; }
+        /* Values Section */
+        .values-section { background: #f7f7f7; padding: 80px 40px; }
+        .section-heading { font-size: clamp(26px, 3.5vw, 38px); font-weight: 900; color: #111; margin-bottom: 8px; }
+        .section-sub { font-size: 15px; color: #777; margin-bottom: 48px; max-width: 520px; line-height: 1.7; }
+        .value-card { background: #fff; border-radius: 14px; padding: 34px 28px; border-left: 4px solid #e84c0e; box-shadow: 0 2px 16px rgba(0,0,0,0.05); transition: transform 0.3s; height: 100%; }
+        .value-card:hover { transform: translateY(-5px); }
+        .value-icon { font-size: 28px; color: #e84c0e; margin-bottom: 16px; }
+        .value-card h3 { font-size: 19px; font-weight: 800; color: #111; margin-bottom: 10px; }
+        .value-card p { font-size: 14px; color: #666; line-height: 1.65; margin: 0; }
 
-        .timeline-section { background:#111; padding:80px 40px; color:white; }
-        .timeline-inner { max-width:760px; margin:0 auto; }
-        .timeline-section .section-label { color:#e84c0e; }
-        .timeline-section .section-heading { color:#fff; }
-        .timeline-section .section-sub { color:rgba(255,255,255,0.55); }
-        .timeline { position:relative; padding-left:40px; border-left:2px solid rgba(255,255,255,0.12); }
-        .timeline-item { position:relative; margin-bottom:40px; }
-        .timeline-item::before { content:''; position:absolute; left:-48px; top:4px; width:14px; height:14px; border-radius:50%; background:#e84c0e; border:3px solid #111; box-shadow:0 0 0 2px #e84c0e; }
-        .timeline-year { font-size:12px;font-weight:700;color:#e84c0e;text-transform:uppercase;letter-spacing:2px;margin-bottom:6px; }
-        .timeline-item h4 { font-size:18px; font-weight:800; color:#fff; margin-bottom:6px; }
-        .timeline-item p { font-size:14px; color:rgba(255,255,255,0.6); line-height:1.65; }
+        /* Team Section */
+        .team-section { background: #fff; padding: 80px 40px; }
+        .team-card { text-align: center; }
+        .team-avatar { width: 100px; height: 100px; border-radius: 50%; overflow: hidden; margin: 0 auto 18px; border: 3px solid #e84c0e; }
+        .team-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .team-card h4 { font-size: 17px; font-weight: 800; color: #111; margin-bottom: 4px; }
+        .team-card .role { font-size: 13px; color: #e84c0e; font-weight: 600; margin-bottom: 8px; }
+        .team-card p { font-size: 13px; color: #777; line-height: 1.6; }
 
-        .site-footer { background:#111; color:rgba(255,255,255,0.65); padding:50px 40px 30px; font-size:14px; }
-        .footer-topbar { display:flex; align-items:center; justify-content:space-between; margin-bottom:32px; }
-        .footer-logo { font-size:26px; font-weight:900; color:#fff; letter-spacing:-0.5px; }
-        .footer-logo span { color:#e84c0e; }
-        .footer-socials { display:flex; gap:14px; }
-        .footer-socials a { width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.7);transition:0.2s;text-decoration:none; }
-        .footer-socials a svg { width:18px;height:18px; }
-        .footer-socials a:hover { background:#e84c0e;border-color:#e84c0e;color:#fff; }
-        .footer-divider { border:none;border-top:1px solid rgba(255,255,255,0.08);margin:0 0 36px; }
-        .footer-cols { display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:32px;margin-bottom:36px; }
-        .footer-col h4 { font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:rgba(255,255,255,0.4);margin:0 0 18px; }
-        .footer-col a { display:block;color:rgba(255,255,255,0.75);text-decoration:none;font-size:14px;font-weight:600;margin-bottom:13px;transition:color 0.2s; }
-        .footer-col a:hover { color:#e84c0e; }
-        .footer-bottom { display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:18px;padding-top:28px;border-top:1px solid rgba(255,255,255,0.08); }
-        .footer-store-btns { display:flex;gap:12px;flex-wrap:wrap; }
-        .f-store-btn { display:flex;align-items:center;gap:9px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.14);border-radius:8px;padding:9px 16px;color:#fff;text-decoration:none;transition:0.2s;min-width:140px; }
-        .f-store-btn:hover { background:#e84c0e;border-color:#e84c0e; }
-        .f-store-btn span { display:flex;flex-direction:column;font-size:14px;font-weight:700;line-height:1.2;color:#fff; }
-        .f-store-btn small { font-size:10px;font-weight:400;opacity:0.7; }
-        .footer-pay { display:flex;gap:8px;flex-wrap:wrap;align-items:center; }
-        .footer-pay span { background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-radius:5px;padding:5px 12px;font-size:11px;font-weight:700;color:rgba(255,255,255,0.6);letter-spacing:0.5px; }
-        .footer-copy { font-size:12px;color:rgba(255,255,255,0.3);margin:0; }
+        /* Timeline Section */
+        .timeline-section { background: #111; padding: 80px 40px; color: white; }
+        .timeline-section .section-label { color: #e84c0e; }
+        .timeline-section .section-heading { color: #fff; }
+        .timeline-section .section-sub { color: rgba(255,255,255,0.55); }
+        .timeline { position: relative; padding-left: 40px; border-left: 2px solid rgba(255,255,255,0.12); }
+        .timeline-item { position: relative; margin-bottom: 40px; }
+        .timeline-item::before { content: ''; position: absolute; left: -48px; top: 4px; width: 14px; height: 14px; border-radius: 50%; background: #e84c0e; border: 3px solid #111; box-shadow: 0 0 0 2px #e84c0e; }
+        .timeline-year { font-size: 12px; font-weight: 700; color: #e84c0e; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 6px; }
+        .timeline-item h4 { font-size: 18px; font-weight: 800; color: #fff; margin-bottom: 6px; }
+        .timeline-item p { font-size: 14px; color: rgba(255,255,255,0.6); line-height: 1.65; }
 
-        @media (max-width:768px) {
-            .story-inner { grid-template-columns:1fr; gap:40px; }
-            .story-badge { right:0; }
-            .stats-strip { padding:28px 20px; }
-            .story-section,.values-section,.team-section,.timeline-section { padding:50px 20px; }
-            .page-hero { padding:70px 20px 60px; }
-            .footer-cols { grid-template-columns:1fr 1fr; }
-            .footer-topbar,.footer-bottom { flex-direction:column; align-items:flex-start; gap:18px; }
+        /* Footer */
+        .site-footer { background: #111; color: rgba(255,255,255,0.65); padding: 50px 40px 30px; font-size: 14px; }
+        .footer-logo { font-size: 26px; font-weight: 900; color: #fff; letter-spacing: -0.5px; }
+        .footer-logo span { color: #e84c0e; }
+        .footer-socials a { width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.7); transition: 0.2s; text-decoration: none; }
+        .footer-socials a svg { width: 18px; height: 18px; }
+        .footer-socials a:hover { background: #e84c0e; border-color: #e84c0e; color: #fff; }
+        .footer-divider { border: none; border-top: 1px solid rgba(255,255,255,0.08); margin: 0 0 36px; }
+        .footer-col h4 { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: rgba(255,255,255,0.4); margin: 0 0 18px; }
+        .footer-col a { display: block; color: rgba(255,255,255,0.75); text-decoration: none; font-size: 14px; font-weight: 600; margin-bottom: 13px; transition: color 0.2s; }
+        .footer-col a:hover { color: #e84c0e; }
+        .footer-bottom { padding-top: 28px; border-top: 1px solid rgba(255,255,255,0.08); }
+        .f-store-btn { display: flex; align-items: center; gap: 9px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.14); border-radius: 8px; padding: 9px 16px; color: #fff; text-decoration: none; transition: 0.2s; min-width: 140px; }
+        .f-store-btn:hover { background: #e84c0e; border-color: #e84c0e; }
+        .f-store-btn span { display: flex; flex-direction: column; font-size: 14px; font-weight: 700; line-height: 1.2; color: #fff; }
+        .f-store-btn small { font-size: 10px; font-weight: 400; opacity: 0.7; }
+        .footer-pay span { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 5px; padding: 5px 12px; font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.6); letter-spacing: 0.5px; }
+        .footer-copy { font-size: 12px; color: rgba(255,255,255,0.3); margin: 0; }
+
+        @media (max-width: 768px) {
+            .story-badge { right: 0; }
+            .stats-strip { padding: 28px 20px; }
+            .story-section, .values-section, .team-section, .timeline-section { padding: 50px 20px; }
+            .page-hero { padding: 70px 20px 60px; }
         }
     </style>
 </head>
 
-<header>
-    <div class="header-left">
+<header class="site-header d-flex justify-content-between align-items-center">
+    <div class="d-flex align-items-center">
         <span class="menu-icon" onclick="toggleNav()">&#9776;</span>
         <a href="index.html" style="text-decoration:none;">
-            <h1 style="font-size:24px;font-weight:bold;color:white;">SpotlessRide</h1>
+            <h1 style="font-size:24px;font-weight:bold;color:white;margin:0;">SpotlessRide</h1>
         </a>
     </div>
 </header>
 
-<nav id="navbar" class="navbar">
+<nav id="navbar" class="navbar-overlay">
     <a href="index.html"><i class="fas fa-home"></i> Home</a>
     <a href="Vehicles.HTML"><i class="fas fa-images"></i> Gallery</a>
     <a href="About-Us.html"><i class="fas fa-info-circle"></i> About Us</a>
@@ -133,112 +128,138 @@
 
 <body>
 
+<!-- Page Hero -->
 <section class="page-hero">
     <span class="page-hero-tag">Our Story</span>
     <h1>Born to shine.<br>Built for <em>your car</em>.</h1>
     <p>SpotlessShine started with one simple belief — getting your car cleaned should be fast, affordable, and deliver results you can actually see.</p>
 </section>
 
+<!-- Stats Strip -->
 <section class="stats-strip">
-    <div class="stats-inner">
-        <div><div class="stat-num">15+</div><div class="stat-label">Wash Locations</div></div>
-        <div><div class="stat-num">80K+</div><div class="stat-label">Cars Washed</div></div>
-        <div><div class="stat-num">50+</div><div class="stat-label">Expert Detailers</div></div>
-        <div><div class="stat-num">4.9★</div><div class="stat-label">Average Rating</div></div>
-        <div><div class="stat-num">6yrs</div><div class="stat-label">In Business</div></div>
+    <div class="container-xl">
+        <div class="row row-cols-2 row-cols-md-5 g-3 text-center">
+            <div class="col"><div class="stat-num">15+</div><div class="stat-label">Wash Locations</div></div>
+            <div class="col"><div class="stat-num">80K+</div><div class="stat-label">Cars Washed</div></div>
+            <div class="col"><div class="stat-num">50+</div><div class="stat-label">Expert Detailers</div></div>
+            <div class="col"><div class="stat-num">4.9★</div><div class="stat-label">Average Rating</div></div>
+            <div class="col"><div class="stat-num">6yrs</div><div class="stat-label">In Business</div></div>
+        </div>
     </div>
 </section>
 
+<!-- Story Section -->
 <section class="story-section">
-    <div class="story-inner">
-        <div class="story-text">
-            <span class="section-label">Who We Are</span>
-            <h2>We rethought car washing. From scratch.</h2>
-            <p>SpotlessShine was founded in 2018 by a team of car enthusiasts frustrated by rushed, low-quality washes — vehicles returned damp, streaky, and no cleaner than before.</p>
-            <p>We set out to build something completely different: a professional-grade wash experience that puts quality first. No shortcuts. No water spots. Just a gleaming, spotless finish every single time.</p>
-            <p>Today, SpotlessShine operates across Botswanawith 15 premium wash bays and over 80,000 loyal customers. But our mission hasn't changed — make every car look like it just rolled out of the showroom.</p>
-        </div>
-        <div class="story-img-side">
-            <div class="story-img-box">
-                <img src="clean.jpg" alt="Car wash in action">
+    <div class="container-xl">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6 story-text">
+                <span class="section-label">Who We Are</span>
+                <h2>We rethought car washing. From scratch.</h2>
+                <p>SpotlessShine was founded in 2018 by a team of car enthusiasts frustrated by rushed, low-quality washes — vehicles returned damp, streaky, and no cleaner than before.</p>
+                <p>We set out to build something completely different: a professional-grade wash experience that puts quality first. No shortcuts. No water spots. Just a gleaming, spotless finish every single time.</p>
+                <p>Today, SpotlessShine operates across Botswana with 15 premium wash bays and over 80,000 loyal customers. But our mission hasn't changed — make every car look like it just rolled out of the showroom.</p>
             </div>
-            <div class="story-badge">
-                <div class="b-num">2018</div>
-                <div class="b-label">Est.Gaborone</div>
+            <div class="col-lg-6 story-img-side">
+                <div class="story-img-box">
+                    <img src="clean.jpg" alt="Car wash in action">
+                </div>
+                <div class="story-badge">
+                    <div class="b-num">2018</div>
+                    <div class="b-label">Est. Gaborone</div>
+                </div>
             </div>
         </div>
     </div>
 </section>
 
+<!-- Values Section -->
 <section class="values-section">
-    <div class="values-inner">
+    <div class="container-xl">
         <span class="section-label">What Drives Us</span>
         <h2 class="section-heading">Our core values</h2>
         <p class="section-sub">Every product we use, every process we follow, every team member we hire — it all comes back to these four principles.</p>
-        <div class="values-grid">
-            <div class="value-card">
-                <div class="value-icon"><i class="fas fa-heart"></i></div>
-                <h3>Customer First</h3>
-                <p>Every service, every process, and every hire is shaped around making your experience better. Full stop.</p>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+            <div class="col">
+                <div class="value-card">
+                    <div class="value-icon"><i class="fas fa-heart"></i></div>
+                    <h3>Customer First</h3>
+                    <p>Every service, every process, and every hire is shaped around making your experience better. Full stop.</p>
+                </div>
             </div>
-            <div class="value-card">
-                <div class="value-icon"><i class="fas fa-eye"></i></div>
-                <h3>Spotless Standards</h3>
-                <p>No missed spots. No hidden charges. Every wash is inspected before handover — if it's not perfect, we redo it free of charge.</p>
+            <div class="col">
+                <div class="value-card">
+                    <div class="value-icon"><i class="fas fa-eye"></i></div>
+                    <h3>Spotless Standards</h3>
+                    <p>No missed spots. No hidden charges. Every wash is inspected before handover — if it's not perfect, we redo it free of charge.</p>
+                </div>
             </div>
-            <div class="value-card">
-                <div class="value-icon"><i class="fas fa-leaf"></i></div>
-                <h3>Eco-Conscious</h3>
-                <p>We use biodegradable products and water-recycling systems at every location. A clean car shouldn't cost the planet.</p>
+            <div class="col">
+                <div class="value-card">
+                    <div class="value-icon"><i class="fas fa-leaf"></i></div>
+                    <h3>Eco-Conscious</h3>
+                    <p>We use biodegradable products and water-recycling systems at every location. A clean car shouldn't cost the planet.</p>
+                </div>
             </div>
-            <div class="value-card">
-                <div class="value-icon"><i class="fas fa-rocket"></i></div>
-                <h3>Always Improving</h3>
-                <p>We train constantly, invest in new techniques, and listen to every review. Your feedback shapes every service update we make.</p>
+            <div class="col">
+                <div class="value-card">
+                    <div class="value-icon"><i class="fas fa-rocket"></i></div>
+                    <h3>Always Improving</h3>
+                    <p>We train constantly, invest in new techniques, and listen to every review. Your feedback shapes every service update we make.</p>
+                </div>
             </div>
         </div>
     </div>
 </section>
 
+<!-- Team Section -->
 <section class="team-section">
-    <div class="team-inner">
+    <div class="container-xl">
         <span class="section-label">The People</span>
         <h2 class="section-heading">Meet the team</h2>
-        <p class="section-sub">A passionate crew of detailing experts, operations managers, and car lovers buiding Botswana's finest wash experience.</p>
-        <div class="team-grid">
-            <div class="team-card">
-                <div class="team-avatar"><img src="Ceo.jpg" alt="Sipho Dlamini"></div>
-                <h4>Sipho Dlamini</h4>
-                <div class="role">Co-Founder & CEO</div>
-                <p>Former automotive industry executive turned entrepreneur. Sipho's obsession with clean cars drives SpotlessShine forward every day.</p>
+        <p class="section-sub">A passionate crew of detailing experts, operations managers, and car lovers building Botswana's finest wash experience.</p>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4">
+            <div class="col">
+                <div class="team-card">
+                    <div class="team-avatar"><img src="Ceo.jpg" alt="Sipho Dlamini"></div>
+                    <h4>Sipho Dlamini</h4>
+                    <div class="role">Co-Founder & CEO</div>
+                    <p>Former automotive industry executive turned entrepreneur. Sipho's obsession with clean cars drives SpotlessShine forward every day.</p>
+                </div>
             </div>
-            <div class="team-card">
-                <div class="team-avatar"><img src="CTO.avif" alt="Ayanda Mokoena"></div>
-                <h4>Ayanda Mokoena</h4>
-                <div class="role">Co-Founder & Operations Director</div>
-                <p>Systems thinker by nature. Ayanda built our wash bay processes and quality-control standards from the ground up.</p>
+            <div class="col">
+                <div class="team-card">
+                    <div class="team-avatar"><img src="CTO.avif" alt="Ayanda Mokoena"></div>
+                    <h4>Ayanda Mokoena</h4>
+                    <div class="role">Co-Founder & Operations Director</div>
+                    <p>Systems thinker by nature. Ayanda built our wash bay processes and quality-control standards from the ground up.</p>
+                </div>
             </div>
-            <div class="team-card">
-                <div class="team-avatar"><img src="Head.jpg" alt="Lerato Nkosi"></div>
-                <h4>Lerato Nkosi</h4>
-                <div class="role">Head of Customer Experience</div>
-                <p>On a personal mission to make sure every customer drives away smiling — and comes back next week.</p>
+            <div class="col">
+                <div class="team-card">
+                    <div class="team-avatar"><img src="Head.jpg" alt="Lerato Nkosi"></div>
+                    <h4>Lerato Nkosi</h4>
+                    <div class="role">Head of Customer Experience</div>
+                    <p>On a personal mission to make sure every customer drives away smiling — and comes back next week.</p>
+                </div>
             </div>
-            <div class="team-card">
-                <div class="team-avatar"><img src="ana.jpg" alt="Tendai Phiri"></div>
-                <h4>Tendai Phiri</h4>
-                <div class="role">Head Detailing Specialist</div>
-                <p>If it has paintwork, Tendai knows how to make it shine. Leads our team of 50+ professional detailers across all locations.</p>
+            <div class="col">
+                <div class="team-card">
+                    <div class="team-avatar"><img src="ana.jpg" alt="Tendai Phiri"></div>
+                    <h4>Tendai Phiri</h4>
+                    <div class="role">Head Detailing Specialist</div>
+                    <p>If it has paintwork, Tendai knows how to make it shine. Leads our team of 50+ professional detailers across all locations.</p>
+                </div>
             </div>
         </div>
     </div>
 </section>
 
+<!-- Timeline Section -->
 <section class="timeline-section">
-    <div class="timeline-inner">
+    <div class="container-xl" style="max-width:760px;">
         <span class="section-label">Our Journey</span>
         <h2 class="section-heading" style="color:#fff;">How we got here</h2>
-        <p class="section-sub">From a single wash bay to Botswana,s most-loved car wash brand.</p>
+        <p class="section-sub">From a single wash bay to Botswana's most-loved car wash brand.</p>
         <div class="timeline">
             <div class="timeline-item">
                 <div class="timeline-year">2018</div>
@@ -269,36 +290,39 @@
     </div>
 </section>
 
+<!-- Footer -->
 <footer class="site-footer">
-    <div class="footer-topbar">
+    <div class="d-flex flex-wrap align-items-center justify-content-between mb-4 footer-topbar">
         <div class="footer-logo">Spotless<span>Ride</span></div>
-        <div class="footer-socials">
+        <div class="footer-socials d-flex gap-3">
             <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg></a>
             <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
             <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
             <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58a2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58zM9.75 15.02V8.98L15.5 12l-5.75 3.02z"/></svg></a>
         </div>
     </div>
-    <div class="footer-divider"></div>
-    <div class="footer-cols">
-        <div class="footer-col"><h4>Our Services</h4><a href="#">Express Wash</a><a href="#">Full Valet</a><a href="#">Interior Detailing</a><a href="#">Subscription Plans</a><a href="#">SpotlessShine App</a></div>
-        <div class="footer-col"><h4>For Business</h4><a href="#">Fleet Accounts</a><a href="#">Corporate Rates</a><a href="#">Dealership Packages</a><a href="#">Transport Companies</a></div>
-        <div class="footer-col"><h4>Members</h4><a href="#">Shine Rewards</a><a href="#">Member Deals</a><a href="#">Referral Program</a><a href="#">Points &amp; Perks</a></div>
-        <div class="footer-col"><h4>About Us</h4><a href="#">Our Story</a><a href="#">News &amp; Blog</a><a href="#">Careers</a><a href="#">Press</a><a href="#">Investor Relations</a></div>
-        <div class="footer-col"><h4>Help &amp; Support</h4><a href="#">Help Centre</a><a href="#">Contact Us</a><a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#">Cookie Settings</a></div>
+    <hr class="footer-divider">
+    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-4 mb-4">
+        <div class="col footer-col"><h4>Our Services</h4><a href="#">Express Wash</a><a href="#">Full Valet</a><a href="#">Interior Detailing</a><a href="#">Subscription Plans</a><a href="#">SpotlessShine App</a></div>
+        <div class="col footer-col"><h4>For Business</h4><a href="#">Fleet Accounts</a><a href="#">Corporate Rates</a><a href="#">Dealership Packages</a><a href="#">Transport Companies</a></div>
+        <div class="col footer-col"><h4>Members</h4><a href="#">Shine Rewards</a><a href="#">Member Deals</a><a href="#">Referral Program</a><a href="#">Points &amp; Perks</a></div>
+        <div class="col footer-col"><h4>About Us</h4><a href="#">Our Story</a><a href="#">News &amp; Blog</a><a href="#">Careers</a><a href="#">Press</a><a href="#">Investor Relations</a></div>
+        <div class="col footer-col"><h4>Help &amp; Support</h4><a href="#">Help Centre</a><a href="#">Contact Us</a><a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#">Cookie Settings</a></div>
     </div>
-    <div class="footer-divider"></div>
-    <div class="footer-bottom">
-        <div class="footer-store-btns">
+    <hr class="footer-divider">
+    <div class="footer-bottom d-flex flex-wrap align-items-center justify-content-between gap-3">
+        <div class="d-flex gap-3 flex-wrap">
             <a href="#" class="f-store-btn"><svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span><small>Download on the</small>App Store</span></a>
             <a href="#" class="f-store-btn"><svg viewBox="0 0 24 24" fill="none" width="20" height="20"><path d="M3 20.5v-17c0-.83 1-.83 1.5-.5l14 8.5-14 8.5c-.5.33-1.5.33-1.5-.5z" fill="#4CAF50"/><path d="M3 3.5l10 10L3 20.5V3.5z" fill="#81C784"/><path d="M17.5 11.5l-4.5 2-10-10 14.5 8z" fill="#FF7043"/><path d="M17.5 12.5L3 20.5l10-10 4.5 2z" fill="#FFCA28"/></svg><span><small>GET IT ON</small>Google Play</span></a>
         </div>
-        <div class="footer-pay"><span>VISA</span><span>MC</span><span>AMEX</span><span>PayPal</span></div>
+        <div class="footer-pay d-flex gap-2 flex-wrap align-items-center"><span>VISA</span><span>MC</span><span>AMEX</span><span>PayPal</span></div>
         <p class="footer-copy">&copy; 2025 SpotlessShine. All rights reserved.</p>
     </div>
 </footer>
 
 </body>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     function toggleNav() { document.getElementById('navbar').classList.toggle('active'); }
     window.addEventListener('click', function(e) {
